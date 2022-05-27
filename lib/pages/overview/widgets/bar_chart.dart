@@ -5,7 +5,7 @@ import 'package:flutter_web_dashboard/constants/style.dart';
 
 class SimpleBarChart extends StatelessWidget {
   final List<charts.Series> seriesList;
-  final bool animate;
+  final bool? animate;
 
   SimpleBarChart(this.seriesList, {this.animate});
 
@@ -22,7 +22,7 @@ class SimpleBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new charts.BarChart(
-      seriesList,
+      List.from(seriesList),
       animate: animate,
     );
   }

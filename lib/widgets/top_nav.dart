@@ -14,7 +14,7 @@ AppBar(
             ),
           ],
         ) : IconButton(icon: Icon(Icons.menu), onPressed: (){
-          key.currentState.openDrawer();
+          key.currentState?.openDrawer();
         }),
         title: Container(
           child: Row(

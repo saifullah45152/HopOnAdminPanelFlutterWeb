@@ -8,7 +8,7 @@ import 'package:flutter_web_dashboard/widgets/side_menu_item.dart';
 import 'package:get/get.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({ Key key }) : super(key: key);
+  const SideMenu({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

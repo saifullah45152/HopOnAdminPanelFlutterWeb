@@ -4,11 +4,11 @@ import 'package:flutter_web_dashboard/constants/style.dart';
 class InfoCard extends StatelessWidget {
   final String title;
   final String value;
-  final Color topColor;
+  final Color? topColor;
   final bool isActive;
-  final Function onTap;
+  final Function() onTap;
 
-  const InfoCard({Key key,@required this.title,@required this.value, this.isActive = false,@required this.onTap, this.topColor})
+  const InfoCard({Key? key,required this.title, required this.value, this.isActive = false, required this.onTap, this.topColor})
       : super(key: key);
 
   @override

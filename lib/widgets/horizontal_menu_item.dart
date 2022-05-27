@@ -6,9 +6,9 @@ import 'package:flutter_web_dashboard/constants/style.dart';
 import 'custom_text.dart';
 
 class HorizontalMenuItem extends StatelessWidget {
-    final String itemName;
-  final Function onTap;
-  const HorizontalMenuItem({ Key key, this.itemName, this.onTap }) : super(key: key);
+    final String? itemName;
+  final Function() onTap;
+  const HorizontalMenuItem({ Key? key, this.itemName, required this.onTap }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,14 @@ class HorizontalMenuItem extends StatelessWidget {
                   onTap: onTap,
                   onHover: (value){
                     value ?
-                    menuController.onHover(itemName) : menuController.onHover("not hovering");
+                    menuController.onHover(itemName!) : menuController.onHover("not hovering");
                   },
                   child: Obx(() => Container(
-                    color: menuController.isHovering(itemName) ? lightGrey.withOpacity(.1) : Colors.transparent,
+                    color: menuController.isHovering(itemName!) ? lightGrey.withOpacity(.1) : Colors.transparent,
                     child: Row(
                       children: [
                         Visibility(
-                          visible: menuController.isHovering(itemName) || menuController.isActive(itemName),
+                          visible: menuController.isHovering(itemName!) || menuController.isActive(itemName!),
                           maintainSize: true,
                           maintainAnimation: true,
                           maintainState: true,
@@ -39,10 +39,10 @@ class HorizontalMenuItem extends StatelessWidget {
 
                         Padding(
                           padding: const EdgeInsets.all(16),
-                          child: menuController.returnIconFor(itemName),
+                          child: menuController.returnIconFor(itemName!),
                         ),
-                        if(!menuController.isActive(itemName))
-                        Flexible(child: CustomText(text: itemName , color: menuController.isHovering(itemName) ? dark : lightGrey,))
+                        if(!menuController.isActive(itemName!))
+                        Flexible(child: CustomText(text: itemName , color: menuController.isHovering(itemName!) ? dark : lightGrey,))
                         else
                         Flexible(child: CustomText(text: itemName , color:  dark , size: 18, weight: FontWeight.bold,))
 

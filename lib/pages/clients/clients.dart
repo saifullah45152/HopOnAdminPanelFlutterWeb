@@ -6,7 +6,7 @@ import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
 class ClientsPage extends StatelessWidget {
-  const ClientsPage({ Key key }) : super(key: key);
+  const ClientsPage({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
