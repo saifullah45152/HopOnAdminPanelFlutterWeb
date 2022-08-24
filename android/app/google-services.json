@@ -1,0 +1,151 @@
+{
+  "project_info": {
+    "project_number": "1020227698379",
+    "firebase_url": "https://hop-on-85d9b-default-rtdb.firebaseio.com",
+    "project_id": "hop-on-85d9b",
+    "storage_bucket": "hop-on-85d9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020227698379:android:a5527895f4f72e23e9654e",
+        "android_client_info": {
+          "package_name": "com.santosenoque.flutter_web_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3OyHCm-apki8-TVz806SzQ9mHihDuOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1020227698379-c635iu6702bkadnjgq041sru003di1bj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.viral.hopOnPassenger"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020227698379:android:53a48c3c21c2c0b2e9654e",
+        "android_client_info": {
+          "package_name": "com.viral.hop_on_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020227698379-o3hhna7n23rc22h8842o0ijk78tnn3ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viral.hop_on_driver",
+            "certificate_hash": "5d456b6563fd5e7b62f17dd957377412774b9124"
+          }
+        },
+        {
+          "client_id": "1020227698379-sn2trn9m16eas4pvd0aggonkkup7g1vm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viral.hop_on_driver",
+            "certificate_hash": "9c93de2387c766a90dcb252a4d57b02227cada27"
+          }
+        },
+        {
+          "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3OyHCm-apki8-TVz806SzQ9mHihDuOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1020227698379-c635iu6702bkadnjgq041sru003di1bj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.viral.hopOnPassenger"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020227698379:android:d4aa2da9f7b4148ce9654e",
+        "android_client_info": {
+          "package_name": "com.viral.hop_on_passenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020227698379-c1equp801dnb1b2fvlcqa24la489h3at.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viral.hop_on_passenger",
+            "certificate_hash": "5d456b6563fd5e7b62f17dd957377412774b9124"
+          }
+        },
+        {
+          "client_id": "1020227698379-o4549scm1o2ddph8eg6f2g6ujpo4njts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viral.hop_on_passenger",
+            "certificate_hash": "9c93de2387c766a90dcb252a4d57b02227cada27"
+          }
+        },
+        {
+          "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3OyHCm-apki8-TVz806SzQ9mHihDuOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020227698379-tiifuudtcrmb7jtvus1m3vprhe118bba.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1020227698379-c635iu6702bkadnjgq041sru003di1bj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.viral.hopOnPassenger"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

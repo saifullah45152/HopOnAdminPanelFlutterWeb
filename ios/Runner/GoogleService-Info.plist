@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1020227698379-kjptkmcf46kbo3fo587qncq0uodld9ka.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1020227698379-kjptkmcf46kbo3fo587qncq0uodld9ka</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1020227698379-c1equp801dnb1b2fvlcqa24la489h3at.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAWFIN7hHAj8wVwZxXwTTFX6hON3QQ71hw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1020227698379</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.santosenoque.flutterWebDashboard</string>
+	<key>PROJECT_ID</key>
+	<string>hop-on-85d9b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hop-on-85d9b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1020227698379:ios:870d9a38208fe3eae9654e</string>
+	<key>DATABASE_URL</key>
+	<string>https://hop-on-85d9b-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
