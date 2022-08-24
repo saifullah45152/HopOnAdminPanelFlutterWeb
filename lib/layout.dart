@@ -19,6 +19,7 @@ class SiteLayout extends StatelessWidget {
       ),
       body: ResponsiveWidget(
         largeScreen: LargeScreen(),
+        mediumScreen: LargeScreen(),
         smallScreen: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: localNavigator(),
