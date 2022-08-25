@@ -21,8 +21,7 @@ class OverviewPage extends StatelessWidget {
             () => Row(
               children: [
                 Container(
-                    margin: EdgeInsets.only(
-                        top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                    margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                     child: CustomText(
                       text: menuController.activeItem.value,
                       size: 24,
@@ -32,25 +31,20 @@ class OverviewPage extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: ListView(
-            children: [
-              if (ResponsiveWidget.isLargeScreen(context) ||
-                  ResponsiveWidget.isMediumScreen(context))
-                if (ResponsiveWidget.isCustomSize(context))
-                  OverviewCardsMediumScreen()
+            child: ListView(
+              children: [
+                if (ResponsiveWidget.isLargeScreen(context) || ResponsiveWidget.isMediumScreen(context))
+                  if (ResponsiveWidget.isCustomSize(context))
+                    OverviewCardsMediumScreen()
+                  else
+                    OverviewCardsLargeScreen()
                 else
-                  OverviewCardsLargeScreen()
-              else
-                OverviewCardsSmallScreen(),
-              if (!ResponsiveWidget.isSmallScreen(context))
-                RevenueSectionLarge()
-              else
-                RevenueSectionSmall(),
-
+                  OverviewCardsSmallScreen(),
+                if (!ResponsiveWidget.isSmallScreen(context)) RevenueSectionLarge() else RevenueSectionSmall(),
                 AvailableDriversTable(),
-             
-            ],
-          ))
+              ],
+            ),
+          )
         ],
       ),
     );
