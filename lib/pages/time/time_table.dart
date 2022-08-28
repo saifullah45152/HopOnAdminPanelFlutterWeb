@@ -50,6 +50,8 @@ class _TimeTableState extends State<TimeTable> {
                     decoration: BoxDecoration(
                       color: Colors.white60,
                       border: Border.all(color: active.withOpacity(.4), width: .5),
+                      borderRadius: BorderRadius.circular(8),
+
                       boxShadow: [
                         BoxShadow(
                           offset: Offset(0, 6),
@@ -57,7 +59,6 @@ class _TimeTableState extends State<TimeTable> {
                           blurRadius: 12,
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
@@ -89,7 +90,7 @@ class _TimeTableState extends State<TimeTable> {
                 ),
                 SizedBox(height: 20),
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: ffstore.collection("HopOnTimeSlot").snapshots(),
+                  stream: ffstore.collection("HopOnTimeSlot").orderBy('time').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -105,7 +106,7 @@ class _TimeTableState extends State<TimeTable> {
                               return Container(
                                 margin: EdgeInsets.all(3),
                                 padding: EdgeInsets.all(20),
-                                width: 160,
+                                width: 175,
                                 decoration: BoxDecoration(
                                   color: Colors.white60,
                                   border: Border.all(color: active.withOpacity(.4), width: .5),
@@ -183,7 +184,6 @@ class _TimeTableState extends State<TimeTable> {
       initialEntryMode: TimePickerEntryMode.dial,
     );
     if (timeOfDay != null && timeOfDay != taskDateTime) {
-      // setState(() async {
       print("Inside Time Picker ");
       taskDateTime = DateTime(
         taskDateTime.value.year,
@@ -193,12 +193,7 @@ class _TimeTableState extends State<TimeTable> {
         timeOfDay.minute,
       ).obs;
       selectedTime.value = taskDateTime.value.toString();
-
-      log("Selected time  is $taskDateTime");
-      log("Selected time from => selectedTime.value  is ${selectedTime.value}");
-      log(" Time after parsing ${DateFormat('jm').format(DateTime.parse(selectedTime.value))}");
-
-      if (selectedTime.value != null && selectedTime.value != "") {
+      if (selectedTime.value != "") {
         await ffstore.collection("HopOnTimeSlot").add({
           'time': DateFormat('jm').format(DateTime.parse(selectedTime.value)),
         });
@@ -211,7 +206,6 @@ class _TimeTableState extends State<TimeTable> {
       } else {
         log(" Date not selected ");
       }
-      // });
     }
   }
 }

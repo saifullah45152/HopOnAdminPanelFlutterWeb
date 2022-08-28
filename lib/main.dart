@@ -49,11 +49,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, child) {
         return GetMaterialApp(
           initialRoute: authenticationPageRoute,
-          unknownRoute: GetPage(
-            name: '/not-found',
-            page: () => PageNotFound(),
-            transition: Transition.fadeIn,
-          ),
+          unknownRoute: GetPage(name: '/not-found', page: () => PageNotFound(), transition: Transition.fadeIn),
           getPages: [
             GetPage(name: rootRoute, page: () => SiteLayout()),
             GetPage(name: authenticationPageRoute, page: () => AuthenticationPage()),

@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 
 class HopOnXLPriceUpdate extends StatefulWidget {
   Map? mapData;
-  HopOnXLPriceUpdate({Key? key, this.mapData}) : super(key: key);
+  String? id;
+  HopOnXLPriceUpdate({Key? key, this.mapData, this.id}) : super(key: key);
 
   @override
   State<HopOnXLPriceUpdate> createState() => _HopOnXLPriceUpdateState();
@@ -15,6 +16,14 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
   TextEditingController kiloMeterController = TextEditingController();
   TextEditingController bookingFeeController = TextEditingController();
   TextEditingController serviceController = TextEditingController();
+
+  @override
+  void initState() {
+    kiloMeterController.text = widget.mapData!['perkilometerprice'].toString();
+    bookingFeeController.text = widget.mapData!['bookingfee'].toString();
+    serviceController.text = widget.mapData!['hoponservicefee'].toString();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,6 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
                     size: 18,
                   ),
                   SizedBox(height: Get.height * 0.04),
-
                   Row(
                     children: [
                       Padding(
@@ -63,7 +71,6 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
                     ],
                   ),
                   SizedBox(height: Get.height * 0.04),
-
                   TextFormField(
                     controller: kiloMeterController,
                     decoration: InputDecoration(
@@ -98,7 +105,19 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
                   ),
                   SizedBox(height: 15),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await ffstore.collection("HopOnXLPrice").doc(widget.id).update({
+                        'perkilometerprice': int.parse(kiloMeterController.text),
+                        'bookingfee': int.parse(bookingFeeController.text),
+                        'hoponservicefee': int.parse(serviceController.text),
+                      });
+                      Get.snackbar(
+                        "Success",
+                        "Price updated successfully",
+                        duration: Duration(seconds: 4),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
                       alignment: Alignment.center,

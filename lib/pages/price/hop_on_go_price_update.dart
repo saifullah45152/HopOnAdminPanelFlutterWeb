@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
@@ -5,7 +7,8 @@ import 'package:get/get.dart';
 
 class HopOnGoPriceUpdate extends StatefulWidget {
   Map? mapData;
-  HopOnGoPriceUpdate({Key? key, this.mapData}) : super(key: key);
+  String ? id;
+  HopOnGoPriceUpdate({Key? key, this.mapData,this.id}) : super(key: key);
 
   @override
   State<HopOnGoPriceUpdate> createState() => _HopOnGoPriceUpdateState();
@@ -19,9 +22,9 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
 
   @override
   void initState() {
-    kiloMeterController.text= widget.mapData!['priceperkilometer'];
-    bookingFeeController.text= widget.mapData!['priceperkilometer'];
-    serviceController.text= widget.mapData!['priceperkilometer'];
+    kiloMeterController.text= widget.mapData!['priceperkilometer'].toString();
+    bookingFeeController.text= widget.mapData!['bookingfee'].toString();
+    serviceController.text= widget.mapData!['hoponservicefee'].toString();
     super.initState();
   }
   @override
@@ -106,7 +109,17 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
                   ),
                   SizedBox(height: 15),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await ffstore.collection("HopOnGoPrice").doc(widget.id).update({
+                        'priceperkilometer':int.parse(kiloMeterController.text),
+                        'bookingfee':int.parse(bookingFeeController.text),
+                        'hoponservicefee':int.parse(serviceController.text),
+                      });
+                      Get.snackbar("Success", "Price updated successfully",
+                      duration: Duration(seconds: 4),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
                       alignment: Alignment.center,

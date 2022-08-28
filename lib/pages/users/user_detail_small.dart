@@ -242,6 +242,16 @@ class UserDetailSmall extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       log("Driver Accepted or rejected ");
+                                      ffstore
+                                          .collection(driverCollection)
+                                          .doc(driverModel!.currentUserId)
+                                          .update({'isApproved': true});
+                                      Get.snackbar(
+                                        "Success",
+                                        "Users approved successfully",
+                                        duration: Duration(seconds: 4),
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
                                     },
                                     child: Container(
                                       decoration:

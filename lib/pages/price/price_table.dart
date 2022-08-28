@@ -8,7 +8,6 @@ import 'package:flutter_web_dashboard/pages/price/hop_on_x_price_update.dart';
 import 'package:flutter_web_dashboard/pages/price/hop_on_xl_price_update.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 
-
 class PriceTable extends StatefulWidget {
   PriceTable({Key? key}) : super(key: key);
 
@@ -47,6 +46,7 @@ class _PriceTableState extends State<PriceTable> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //+HOP ON GO
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   stream: ffstore.collection("HopOnGoPrice").snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -71,12 +71,12 @@ class _PriceTableState extends State<PriceTable> {
                               Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
                               return GestureDetector(
                                 onTap: () {
-                                  // Get.to(HopOnGoPriceUpdate(mapData: data));
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (BuildContext context) => HopOnGoPriceUpdate(
                                         mapData: data,
+                                        id: snapshot.data!.docs[index].id,
                                       ),
                                     ),
                                   );
@@ -137,6 +137,7 @@ class _PriceTableState extends State<PriceTable> {
                   },
                 ),
                 SizedBox(height: 20),
+                //+HOP ON X
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   stream: ffstore.collection("HopOnXPrice").snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -167,6 +168,7 @@ class _PriceTableState extends State<PriceTable> {
                                     MaterialPageRoute(
                                       builder: (BuildContext context) => HopOnXPriceUpdate(
                                         mapData: data,
+                                        id: snapshot.data!.docs[index].id,
                                       ),
                                     ),
                                   );
@@ -227,8 +229,9 @@ class _PriceTableState extends State<PriceTable> {
                   },
                 ),
                 SizedBox(height: 20),
+                //+HOP ON XL
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: ffstore.collection("HopOnXPrice").snapshots(),
+                  stream: ffstore.collection("HopOnXLPrice").snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     log("inside home stream builder");
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -257,6 +260,7 @@ class _PriceTableState extends State<PriceTable> {
                                     MaterialPageRoute(
                                       builder: (BuildContext context) => HopOnXLPriceUpdate(
                                         mapData: data,
+                                        id: snapshot.data!.docs[index].id,
                                       ),
                                     ),
                                   );
@@ -316,7 +320,6 @@ class _PriceTableState extends State<PriceTable> {
                     }
                   },
                 ),
-
               ],
             ),
           ),

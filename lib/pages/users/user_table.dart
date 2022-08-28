@@ -28,7 +28,7 @@ class UserTable extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(bottom: 30),
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: ffstore.collection(driverCollection).snapshots(),
+          stream: ffstore.collection(driverCollection).orderBy('isApproved',descending: true).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             log("inside home stream builder");
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -91,7 +91,9 @@ class UserTable extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: CustomText(
-                                      text: "Pending",
+                                      text: driverModel.isApproved == false ? "Pending" : "Approved ",
+                                      weight: FontWeight.bold,
+                                      color: driverModel.isApproved == false ? active : Colors.black,
                                     ),
                                   ),
                                   Expanded(

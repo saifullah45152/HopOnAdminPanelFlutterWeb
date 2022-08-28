@@ -242,10 +242,20 @@ class UserDetailLarge extends StatelessWidget {
                                       InkWell(
                                         onTap: () {
                                           log("Driver Accepted or rejected ");
+                                          ffstore
+                                              .collection(driverCollection)
+                                              .doc(driverModel!.currentUserId)
+                                              .update({'isApproved': true});
+                                          Get.snackbar(
+                                            "Success",
+                                            "Users approved successfully",
+                                            duration: Duration(seconds: 4),
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
                                         },
                                         child: Container(
-                                          decoration:
-                                              BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
+                                          decoration: BoxDecoration(
+                                              color: active, borderRadius: BorderRadius.circular(20)),
                                           alignment: Alignment.center,
                                           width: double.maxFinite,
                                           padding: EdgeInsets.symmetric(vertical: 16),
