@@ -1,8 +1,4 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_dashboard/constants/loading_dismissloading.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
