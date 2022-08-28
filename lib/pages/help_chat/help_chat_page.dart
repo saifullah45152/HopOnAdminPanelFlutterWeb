@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
-import 'package:flutter_web_dashboard/pages/users/widgets/user_table.dart';
+import 'package:flutter_web_dashboard/pages/help_chat/chat_help_layout_builder.dart';
+import 'package:flutter_web_dashboard/pages/help_chat/chat_head_small_screen.dart';
+import 'package:flutter_web_dashboard/pages/record/record_table.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+class HelpChatPage extends StatelessWidget {
+  const HelpChatPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class UserPage extends StatelessWidget {
       child: Column(
         children: [
           Obx(
-            () => Row(
+                () => Row(
               children: [
                 Container(
                   margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
@@ -30,7 +32,7 @@ class UserPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                UserTable(),
+                ChatHelpLayOutBuilder(),
               ],
             ),
           ),

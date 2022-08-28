@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
-import 'package:flutter_web_dashboard/pages/users/widgets/user_table.dart';
+import 'package:flutter_web_dashboard/pages/clients/widgets/clients_table.dart';
+import 'package:flutter_web_dashboard/pages/time/time_table.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+class TimePage extends StatelessWidget {
+  const TimePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class UserPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                UserTable(),
+                TimeTable(),
               ],
             ),
           ),

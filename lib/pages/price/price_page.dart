@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
-import 'package:flutter_web_dashboard/pages/users/widgets/user_table.dart';
+import 'package:flutter_web_dashboard/pages/price/price_table.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+class PricePage extends StatelessWidget {
+  const PricePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class UserPage extends StatelessWidget {
       child: Column(
         children: [
           Obx(
-            () => Row(
+                () => Row(
               children: [
                 Container(
                   margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
@@ -30,7 +30,7 @@ class UserPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                UserTable(),
+                PriceTable(),
               ],
             ),
           ),

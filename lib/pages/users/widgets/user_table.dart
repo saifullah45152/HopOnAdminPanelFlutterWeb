@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
-import 'package:flutter_web_dashboard/layout_builder/driver_detail_layout_bulder.dart';
+import 'package:flutter_web_dashboard/pages/users/user_detail_layout_bulder.dart';
 import 'package:flutter_web_dashboard/model/driver_model.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
 /// Example without datasource
-class DriversTable extends StatelessWidget {
+class UserTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,7 +60,7 @@ class DriversTable extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 log("Row Button Pressed ");
-                                Get.to(() => LayoutScreen(
+                                Get.to(() => UserLayOutScreen(
                                       driverModel: driverModel,
                                     ));
                               },
@@ -110,7 +110,7 @@ class DriversTable extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (BuildContext context) => LayoutScreen(
+                                          builder: (BuildContext context) => UserLayOutScreen(
                                             driverModel: driverModel,
                                           ),
                                         ),

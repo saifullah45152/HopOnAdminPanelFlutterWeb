@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
-import 'package:flutter_web_dashboard/pages/drivers/widgets/drivers_table.dart';
+import 'package:flutter_web_dashboard/pages/active_driver/active_driver_table.dart';
+import 'package:flutter_web_dashboard/pages/clients/widgets/clients_table.dart';
+import 'package:flutter_web_dashboard/pages/time/time_table.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
-class DriversPage extends StatelessWidget {
-  const DriversPage({Key? key}) : super(key: key);
+class ActiveDriverPage extends StatelessWidget {
+  const ActiveDriverPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class DriversPage extends StatelessWidget {
       child: Column(
         children: [
           Obx(
-            () => Row(
+                () => Row(
               children: [
                 Container(
                   margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
@@ -30,7 +32,7 @@ class DriversPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                DriversTable(),
+                ActiveDriverTable(),
               ],
             ),
           ),
