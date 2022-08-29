@@ -7,26 +7,28 @@ import 'package:get/get.dart';
 
 class HopOnGoPriceUpdate extends StatefulWidget {
   Map? mapData;
-  String ? id;
-  HopOnGoPriceUpdate({Key? key, this.mapData,this.id}) : super(key: key);
+  String? id;
+  HopOnGoPriceUpdate({Key? key, this.mapData, this.id}) : super(key: key);
 
   @override
   State<HopOnGoPriceUpdate> createState() => _HopOnGoPriceUpdateState();
 }
 
 class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   TextEditingController kiloMeterController = TextEditingController();
   TextEditingController bookingFeeController = TextEditingController();
   TextEditingController serviceController = TextEditingController();
 
-
   @override
   void initState() {
-    kiloMeterController.text= widget.mapData!['priceperkilometer'].toString();
-    bookingFeeController.text= widget.mapData!['bookingfee'].toString();
-    serviceController.text= widget.mapData!['hoponservicefee'].toString();
+    kiloMeterController.text = widget.mapData!['priceperkilometer'].toString();
+    bookingFeeController.text = widget.mapData!['bookingfee'].toString();
+    serviceController.text = widget.mapData!['hoponservicefee'].toString();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,89 +52,130 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
             child: Container(
               constraints: BoxConstraints(maxWidth: 600),
               padding: EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: "HOP ON GO",
-                    weight: FontWeight.bold,
-                    size: 18,
-                  ),
-                  SizedBox(height: Get.height * 0.04),
-
-                  Row(
+              child: Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: Image.asset(
-                          "assets/images/Hop On.png",
-                          height: 70,
+                      CustomText(
+                        text: "HOP ON GO",
+                        weight: FontWeight.bold,
+                        size: 18,
+                      ),
+                      SizedBox(height: Get.height * 0.04),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Image.asset(
+                              "assets/images/Hop On.png",
+                              height: 70,
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                        ],
+                      ),
+                      SizedBox(height: Get.height * 0.04),
+                      TextFormField(
+                        controller: kiloMeterController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a price";
+                          } else if (!GetUtils.isNum(value.trim())) {
+                            return "Please enter a valid price ";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Per 1 KiloMeter",
+                          hintText: "1",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
-                      Expanded(child: Container()),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        controller: bookingFeeController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a price";
+                          } else if (!GetUtils.isNum(value.trim())) {
+                            return "Please enter a valid price ";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Hop On Go Booking Fee",
+                          hintText: "2",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        controller: serviceController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a price";
+                          } else if (!GetUtils.isNum(value.trim())) {
+                            return "Please enter a valid number ";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Hop On Go Service Fee",
+                          hintText: "2",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      InkWell(
+                        onTap: () async {
+                          if (formKey.currentState!.validate()) {
+                            await ffstore.collection("HopOnGoPrice").doc(widget.id).update({
+                              'priceperkilometer': int.parse(kiloMeterController.text),
+                              'bookingfee': int.parse(bookingFeeController.text),
+                              'hoponservicefee': int.parse(serviceController.text),
+                            });
+                            Get.snackbar(
+                              "Success",
+                              "Price updated successfully",
+                              duration: Duration(seconds: 4),
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          } else {
+                            Get.snackbar(
+                              "Failure ",
+                              "Form Not Validated ",
+                              duration: Duration(seconds: 4),
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          width: double.maxFinite,
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: CustomText(
+                            text: "Update",
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
                     ],
                   ),
-                  SizedBox(height: Get.height * 0.04),
-
-                  TextFormField(
-                    controller: kiloMeterController,
-                    decoration: InputDecoration(
-                      labelText: "Per 1 KiloMeter",
-                      hintText: "1",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  TextFormField(
-                    controller: bookingFeeController,
-                    decoration: InputDecoration(
-                      labelText: "Hop On Go Booking Fee",
-                      hintText: "2",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  TextFormField(
-                    controller: serviceController,
-                    decoration: InputDecoration(
-                      labelText: "Hop On Go Service Fee",
-                      hintText: "2",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  InkWell(
-                    onTap: () async {
-                      await ffstore.collection("HopOnGoPrice").doc(widget.id).update({
-                        'priceperkilometer':int.parse(kiloMeterController.text),
-                        'bookingfee':int.parse(bookingFeeController.text),
-                        'hoponservicefee':int.parse(serviceController.text),
-                      });
-                      Get.snackbar("Success", "Price updated successfully",
-                      duration: Duration(seconds: 4),
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
-                      alignment: Alignment.center,
-                      width: double.maxFinite,
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: CustomText(
-                        text: "Update",
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                ],
+                ),
               ),
             ),
           ),
