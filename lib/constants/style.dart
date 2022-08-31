@@ -31,6 +31,8 @@ const KPrimaryColor = Color(0xffFFFFFF);
 const KGreyColor = Color(0xffF2F2F5);
 const kPrimaryColor2 = Color(0xffFFFFFF);
 const kGreyColor = Color(0xff707070);
+// const kSecondaryColor = Color(0xffA032FF);
+const kSecondaryColor = Color(0xffA032FF);
 
 
 

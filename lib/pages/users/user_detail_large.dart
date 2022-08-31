@@ -47,10 +47,41 @@ class UserDetailLarge extends StatelessWidget {
                   SizedBox(
                     height: Get.height * 0.01,
                   ),
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: NetworkImage(
+                  // CircleAvatar(
+                  //   radius: 80,
+                  //   backgroundImage: NetworkImage(
+                  //     "${driverModel?.imgUrl ?? ""}",
+                  //   ),
+                  // ),
+                  ClipOval(
+                    child :Image.network(
                       "${driverModel?.imgUrl ?? ""}",
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return ClipOval(
+                          child: SizedBox(
+                            height: 58,
+                            width: 58,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                  kSecondaryColor,
+                                ),
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!.toInt()
+                                    : null,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+
                     ),
                   ),
                   SizedBox(height: Get.height * 0.04),
@@ -138,6 +169,30 @@ class UserDetailLarge extends StatelessWidget {
                                         child: Image.network(
                                           "${data['inspection']}",
                                           fit: BoxFit.cover,
+                                          height: 58,
+                                          width: 58,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return ClipOval(
+                                              child: SizedBox(
+                                                height: 58,
+                                                width: 58,
+                                                child: Center(
+                                                  child: CircularProgressIndicator(
+                                                    valueColor: const AlwaysStoppedAnimation<Color>(
+                                                      kSecondaryColor,
+                                                    ),
+                                                    value: loadingProgress.expectedTotalBytes != null
+                                                        ? loadingProgress.cumulativeBytesLoaded /
+                                                            loadingProgress.expectedTotalBytes!.toInt()
+                                                        : null,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                       SizedBox(height: Get.height * 0.04),

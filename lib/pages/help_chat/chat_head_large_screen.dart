@@ -52,53 +52,52 @@ class _ChatHeadLargeScreenState extends State<ChatHeadLargeScreen> {
                   ),
                 ),
                 SizedBox(height: 20),
-                StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: ffstore
-                      .collection(helpChatRoomCollection)
-                      // .where('users', arrayContains: "mLf1kOG0WqXe3pDCbhEFB44Px7w2")
-                      .snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox();
-                    } else if (snapshot.connectionState == ConnectionState.active ||
-                        snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return const Text('Error');
-                      } else if (snapshot.hasData) {
-                        return ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            Rx<ChatHeadModel> data = ChatHeadModel().obs;
-                            QueryDocumentSnapshot<Object?>? doc = snapshot.data?.docs[index];
+                Expanded(
+                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: ffstore
+                        .collection(helpChatRoomCollection)
+                        // .where('users', arrayContains: "mLf1kOG0WqXe3pDCbhEFB44Px7w2")
+                        .snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox();
+                      } else if (snapshot.connectionState == ConnectionState.active ||
+                          snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return const Text('Error');
+                        } else if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              Rx<ChatHeadModel> data = ChatHeadModel().obs;
+                              QueryDocumentSnapshot<Object?>? doc = snapshot.data?.docs[index];
 
-                            data.value = ChatHeadModel.fromDocumentSnapshot(doc!);
-                            return Obx(() {
-                              return ReadMessage(
-                                // img: data.value.driverModel?.imgUrl,
-                                img: "",
-                                chatRoomId: data.value.chatRoomId,
-                                message: data.value.lastMessage,
-                                name: data.value.username,
-                                // name:
-                                // "${data.value.driverModel?.firstName} ${data.value.driverModel?.lastName}",
-                                time: data.value.lastMessageAt,
-                              );
-                            });
-                          },
-                        );
+                              data.value = ChatHeadModel.fromDocumentSnapshot(doc!);
+                              return Obx(() {
+                                return ReadMessage(
+                                  img: data.value.userImg,
+                                  chatRoomId: data.value.chatRoomId,
+                                  message: data.value.lastMessage,
+                                  name: data.value.username,
+                                  time: data.value.lastMessageAt,
+                                );
+                              });
+                            },
+                          );
+                        } else {
+                          log("in else of hasData done and: ${snapshot.connectionState} and"
+                              " snapshot.hasData: ${snapshot.hasData}");
+                          return SizedBox();
+                        }
                       } else {
-                        log("in else of hasData done and: ${snapshot.connectionState} and"
-                            " snapshot.hasData: ${snapshot.hasData}");
+                        log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
                         return SizedBox();
                       }
-                    } else {
-                      log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
-                      return SizedBox();
-                    }
-                  },
+                    },
+                  ),
                 )
               ],
             ),
@@ -228,9 +227,12 @@ class _ReadMessageState extends State<ReadMessage> {
                     ),
                     trailing: Expanded(
                       child: Text(
-                        DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes < 60
+                        DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes <
+                                60
                             ? "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes} m ago"
-                            : DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inHours <
+                            : DateTime.now()
+                                        .difference(DateTime.fromMillisecondsSinceEpoch(widget.time))
+                                        .inHours <
                                     24
                                 ? "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inHours} hrs ago"
                                 : "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inDays} days ago",
