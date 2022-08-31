@@ -28,7 +28,7 @@ class UserTable extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(bottom: 30),
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: ffstore.collection(driverCollection).orderBy('isApproved',descending: true).snapshots(),
+          stream: ffstore.collection(driverCollection).orderBy('isApproved', descending: true).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             log("inside home stream builder");
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -60,9 +60,14 @@ class UserTable extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 log("Row Button Pressed ");
-                                Get.to(() => UserLayOutScreen(
-                                      driverModel: driverModel,
-                                    ));
+
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                                  return UserLayOutScreen(driverModel: driverModel);
+                                }));
+
+                                // Get.to(() => UserLayOutScreen(
+                                //       driverModel: driverModel
+                                //     ));
                               },
                               child: Row(
                                 children: [
