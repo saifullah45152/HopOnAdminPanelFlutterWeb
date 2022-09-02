@@ -51,7 +51,6 @@ class _TimeTableState extends State<TimeTable> {
                       color: Colors.white60,
                       border: Border.all(color: active.withOpacity(.4), width: .5),
                       borderRadius: BorderRadius.circular(8),
-
                       boxShadow: [
                         BoxShadow(
                           offset: Offset(0, 6),
@@ -194,15 +193,30 @@ class _TimeTableState extends State<TimeTable> {
       ).obs;
       selectedTime.value = taskDateTime.value.toString();
       if (selectedTime.value != "") {
-        await ffstore.collection("HopOnTimeSlot").add({
-          'time': DateFormat('jm').format(DateTime.parse(selectedTime.value)),
+        await ffstore
+            .collection("HopOnTimeSlot")
+            .where('time', isEqualTo: selectedTime.value)
+            .get()
+            .then((value) async {
+          if (value.docs.length > 0) {
+            Get.snackbar(
+              "Fails",
+              "Time already exists ",
+              duration: Duration(seconds: 4),
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          } else {
+            await ffstore.collection("HopOnTimeSlot").add({
+              'time': DateFormat('jm').format(DateTime.parse(selectedTime.value)),
+            });
+            Get.snackbar(
+              "Success",
+              "Time Added Successfully",
+              duration: Duration(seconds: 4),
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          }
         });
-        Get.snackbar(
-          "Success",
-          "Time Added Successfully",
-          duration: Duration(seconds: 4),
-          snackPosition: SnackPosition.BOTTOM,
-        );
       } else {
         log(" Date not selected ");
       }
