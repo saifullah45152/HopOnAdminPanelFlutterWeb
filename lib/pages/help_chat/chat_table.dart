@@ -10,6 +10,7 @@ import 'package:flutter_web_dashboard/pages/help_chat/chat_screen_small.dart';
 import 'package:get/get.dart';
 
 /// Example without datasource
+/// Example without datasource
 class HelpChatTable extends StatefulWidget {
   @override
   State<HelpChatTable> createState() => _HelpChatTableState();
