@@ -30,7 +30,7 @@ class SideMenu extends StatelessWidget {
                     SizedBox(width: _width / 48),
                     Padding(
                       padding: const EdgeInsets.only(right: 12),
-                      child: Image.asset("assets/icons/logo.png"),
+                      child: Image.asset("assets/images/2-removebg-preview.png"),
                     ),
                     Flexible(
                       child: CustomText(
@@ -50,25 +50,28 @@ class SideMenu extends StatelessWidget {
             ),
           Divider(
             color: lightGrey.withOpacity(.1),
+            thickness: 4,
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: sideMenuItemRoutes
-                .map(
-                  (item) => SideMenuItem(
-                      itemName: item.name,
-                      onTap: () {
-                        if (item.route == authenticationPageRoute) {
-                          Get.offAllNamed(authenticationPageRoute);
-                          menuController.changeActiveItemTo(overviewPageDisplayName);
-                        }
-                        if (!menuController.isActive(item.name)) {
-                          menuController.changeActiveItemTo(item.name);
-                          if (ResponsiveWidget.isSmallScreen(context)) Get.back();
-                          navigationController.navigateTo(item.route);
-                        }
-                      }),
-                )
+                .map((item) => SideMenuItem(
+                    itemName: item.name,
+                    onTap: () {
+                      if (item.route == authenticationPageRoute) {
+                        Get.offAllNamed(authenticationPageRoute);
+
+                        menuController.changeActiveItemTo(overviewPageDisplayName);
+                      } else if (item.route == RoutesName.USERPAGE) {
+                        Navigator.pushNamed(context, RoutesName.USERPAGE);
+                        menuController.changeActiveItemTo(overviewPageDisplayName);
+                      }
+                      if (!menuController.isActive(item.name)) {
+                        menuController.changeActiveItemTo(item.name);
+                        if (ResponsiveWidget.isSmallScreen(context)) Get.back();
+                        navigationController.navigateTo(item.route);
+                      }
+                    }))
                 .toList(),
           )
         ],

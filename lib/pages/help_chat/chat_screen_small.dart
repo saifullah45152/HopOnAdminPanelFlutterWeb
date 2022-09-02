@@ -90,254 +90,238 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: KPrimaryColor,
-      //   elevation: 1,
-      //   leading: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Container(
-      //         margin: EdgeInsets.symmetric(horizontal: 7),
-      //         child: GestureDetector(
-      //             onTap: () {
-      //               Get.back();
-      //             },
-      //             child: Image.asset(
-      //               "assets/Group 50 (1).png",
-      //               height: 13,
-      //             )),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(bottom: 30),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: active.withOpacity(.4), width: .5),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 6),
-              color: lightGrey.withOpacity(.1),
-              blurRadius: 12,
-            ),
-          ],
-          borderRadius: BorderRadius.circular(8),
-        ),
+    return  Scaffold(
+      body:  Center(
         child: Container(
-          child: Center(
-            child: Container(
-              constraints: BoxConstraints(maxWidth: 600),
-              padding: EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream: chatMessageStream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          WidgetsBinding.instance?.addPostFrameCallback((_) {
-                            if (scrollController.hasClients) {
-                              scrollController.jumpTo(
-                                scrollController.position.maxScrollExtent,
-                              );
-                            }
-                          });
-                          return GroupedListView<dynamic, String>(
-                            elements: snapshot.data?.docs as List<dynamic>,
+          padding: const EdgeInsets.all(16),
+          margin: EdgeInsets.only(bottom: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: active.withOpacity(.4), width: .5),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 6),
+                color: lightGrey.withOpacity(.1),
+                blurRadius: 12,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Container(
+            child: Center(
+              child: Container(
+                constraints: BoxConstraints(maxWidth: 600),
+                padding: EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: chatMessageStream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            WidgetsBinding.instance?.addPostFrameCallback((_) {
+                              if (scrollController.hasClients) {
+                                scrollController.jumpTo(
+                                  scrollController.position.maxScrollExtent,
+                                );
+                              }
+                            });
+                            return GroupedListView<dynamic, String>(
+                              elements: snapshot.data?.docs as List<dynamic>,
 
-                            controller: scrollController,
-                            sort: false,
-                            scrollDirection: Axis.vertical,
-                            itemComparator: (element1, element2) => element1['time'].compareTo(element2['time']),
-                            floatingHeader: false,
-                            groupBy: (dynamic element) =>
-                                "${monthsList[DateTime.fromMillisecondsSinceEpoch(element['time']).month - 1]} "
-                                "${DateTime.fromMillisecondsSinceEpoch(element['time']).day}, "
-                                "${DateTime.fromMillisecondsSinceEpoch(element['time']).year}",
-                            groupComparator: (String value1, String value2) => value2.compareTo(value1),
-                            groupSeparatorBuilder: (dynamic element) {
-                              log("Element $element");
-                              bool isToday =
-                                  "${monthsList[DateTime.now().month - 1]} ${DateTime.now().day}, ${DateTime.now().year}" ==
-                                      element;
-                              log("isToday $isToday");
-                              final yesterday =
-                                  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
-                              final yesterdayHere =
-                                  "${monthsList[yesterday.month - 1]} ${yesterday.day}, ${yesterday.year}";
-                              log("yesterdayHere $yesterdayHere");
+                              controller: scrollController,
+                              sort: false,
+                              scrollDirection: Axis.vertical,
+                              itemComparator: (element1, element2) => element1['time'].compareTo(element2['time']),
+                              floatingHeader: false,
+                              groupBy: (dynamic element) =>
+                              "${monthsList[DateTime.fromMillisecondsSinceEpoch(element['time']).month - 1]} "
+                                  "${DateTime.fromMillisecondsSinceEpoch(element['time']).day}, "
+                                  "${DateTime.fromMillisecondsSinceEpoch(element['time']).year}",
+                              groupComparator: (String value1, String value2) => value2.compareTo(value1),
+                              groupSeparatorBuilder: (dynamic element) {
+                                log("Element $element");
+                                bool isToday =
+                                    "${monthsList[DateTime.now().month - 1]} ${DateTime.now().day}, ${DateTime.now().year}" ==
+                                        element;
+                                log("isToday $isToday");
+                                final yesterday =
+                                DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
+                                final yesterdayHere =
+                                    "${monthsList[yesterday.month - 1]} ${yesterday.day}, ${yesterday.year}";
+                                log("yesterdayHere $yesterdayHere");
 
-                              final checkDate = element;
-                              log("checkDate $checkDate");
+                                final checkDate = element;
+                                log("checkDate $checkDate");
 
-                              return SizedBox(
-                                height: 35,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    height: 35,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                        color: Colors.black,
-                                      ),
-                                      borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        !isToday
-                                            ? checkDate == yesterdayHere
-                                                ? "Yesterday"
-                                                : element
-                                            : "Today",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 12,
+                                return SizedBox(
+                                  height: 35,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      height: 35,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
                                           color: Colors.black,
+                                        ),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          !isToday
+                                              ? checkDate == yesterdayHere
+                                              ? "Yesterday"
+                                              : element
+                                              : "Today",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                            itemBuilder: (context, dynamic element) {
-                              lastIndex.value = snapshot.data!.docs.indexWhere((element) =>
-                                  (element["message"] == lastMessage.value &&
-                                      element["time"] == lastMessageAt.value));
+                                );
+                              },
+                              itemBuilder: (context, dynamic element) {
+                                lastIndex.value = snapshot.data!.docs.indexWhere((element) =>
+                                (element["message"] == lastMessage.value &&
+                                    element["time"] == lastMessageAt.value));
 
-                              String type = element.data()["type"];
-                              String message =
-                                  element.data()["message"] != null ? element.data()["message"] : "what is this?";
-                              bool sendByMe = adminId == element.data()["sendById"];
+                                String type = element.data()["type"];
+                                String message =
+                                element.data()["message"] != null ? element.data()["message"] : "what is this?";
+                                bool sendByMe = adminId == element.data()["sendById"];
 
-                              if (!sendByMe) {
-                                element.reference.update({'isRead': true});
-                              }
+                                if (!sendByMe) {
+                                  element.reference.update({'isRead': true});
+                                }
 
-                              String time = element.data()["time"].toString();
+                                String time = element.data()["time"].toString();
 
-                              var hour = DateTime.fromMillisecondsSinceEpoch(int.parse(time)).hour;
-                              var min = DateTime.fromMillisecondsSinceEpoch(int.parse(time)).minute;
-                              var ampm;
-                              if (hour > 12) {
-                                hour = hour % 12;
-                                ampm = 'pm';
-                              } else if (hour == 12) {
-                                ampm = 'pm';
-                              } else if (hour == 0) {
-                                hour = 12;
-                                ampm = 'am';
-                              } else {
-                                ampm = 'am';
-                              }
-                              switch (type) {
-                                case 'text':
-                                  return (sendByMe)
-                                      ? RightBubble(
-                                          type: 'text',
-                                          time: "${hour.toString()}:"
-                                              "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
-                                              "${ampm}",
-                                          msg: message,
-                                          id: element.id,
-                                          sendByMe: sendByMe,
-                                          isRead: element['isRead'],
-                                          isReceived: element['isReceived'],
-                                        )
-                                      : LeftBubble(
-                                          personImage: anotherUserImage,
-                                          type: 'text',
-                                          time: "${hour.toString()}:"
-                                              "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
-                                              "${ampm}",
-                                          msg: message,
-                                          id: element.id,
-                                          sendByMe: sendByMe,
-                                          isRead: element['isRead'],
-                                          isReceived: element['isReceived'],
-                                        );
+                                var hour = DateTime.fromMillisecondsSinceEpoch(int.parse(time)).hour;
+                                var min = DateTime.fromMillisecondsSinceEpoch(int.parse(time)).minute;
+                                var ampm;
+                                if (hour > 12) {
+                                  hour = hour % 12;
+                                  ampm = 'pm';
+                                } else if (hour == 12) {
+                                  ampm = 'pm';
+                                } else if (hour == 0) {
+                                  hour = 12;
+                                  ampm = 'am';
+                                } else {
+                                  ampm = 'am';
+                                }
+                                switch (type) {
+                                  case 'text':
+                                    return (sendByMe)
+                                        ? RightBubble(
+                                      type: 'text',
+                                      time: "${hour.toString()}:"
+                                          "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
+                                          "${ampm}",
+                                      msg: message,
+                                      id: element.id,
+                                      sendByMe: sendByMe,
+                                      isRead: element['isRead'],
+                                      isReceived: element['isReceived'],
+                                    )
+                                        : LeftBubble(
+                                      personImage: anotherUserImage,
+                                      type: 'text',
+                                      time: "${hour.toString()}:"
+                                          "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
+                                          "${ampm}",
+                                      msg: message,
+                                      id: element.id,
+                                      sendByMe: sendByMe,
+                                      isRead: element['isRead'],
+                                      isReceived: element['isReceived'],
+                                    );
 
-                                default:
-                                  return Container();
-                              }
-                            },
-                            order: GroupedListOrder.ASC, // optional
-                          );
-                        } else {
-                          return Container(
-                            child: Center(
-                              child: Text("Loading...."),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.white60,
-                            border: Border.all(color: active.withOpacity(.4), width: .5),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(0, 6),
-                                color: lightGrey.withOpacity(.1),
-                                blurRadius: 12,
+                                  default:
+                                    return Container();
+                                }
+                              },
+                              order: GroupedListOrder.ASC, // optional
+                            );
+                          } else {
+                            return Container(
+                              child: Center(
+                                child: Text("Loading...."),
                               ),
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 9,
-                                child: TextFormField(
-                                  controller: msgController,
-                                  decoration: InputDecoration(
-                                    labelText: "Type here....",
-                                    hintText: "Hello World",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Colors.white60,
+                              border: Border.all(color: active.withOpacity(.4), width: .5),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(0, 6),
+                                  color: lightGrey.withOpacity(.1),
+                                  blurRadius: 12,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 9,
+                                  child: TextFormField(
+                                    controller: msgController,
+                                    decoration: InputDecoration(
+                                      labelText: "Type here....",
+                                      hintText: "Hello World",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    log("send message ");
-                                    await sendMessage();
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/Vector - 2022-03-22T095409.334.png",
-                                    height: 23,
-                                    width: 23,
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      log("send message ");
+                                      await sendMessage();
+                                    },
+                                    child: Image.asset(
+                                      "assets/images/Vector - 2022-03-22T095409.334.png",
+                                      height: 23,
+                                      width: 23,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )),
+                              ],
+                            )),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
+
     );
+
   }
 }
 

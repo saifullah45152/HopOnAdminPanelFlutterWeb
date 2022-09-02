@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
@@ -5,8 +7,8 @@ import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AuthenticationPage extends StatelessWidget {
-  AuthenticationPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
   GlobalKey<FormState> signInKey = GlobalKey<FormState>();
 
@@ -14,6 +16,7 @@ class AuthenticationPage extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    log("Log In Page ");
     return Scaffold(
       body: Center(
         child: Container(
@@ -90,7 +93,8 @@ class AuthenticationPage extends StatelessWidget {
                   SizedBox(height: 30),
                   InkWell(
                     onTap: () async {
-                      Get.offAllNamed(rootRoute);
+                      // Get.offAllNamed(rootRoute);
+                      Navigator.pushReplacementNamed(context, RoutesName.SITELAYOUT);
 
                       // if (signInKey.currentState?.validate() ?? false) {
                       //   signInKey.currentState?.save();

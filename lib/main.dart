@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,13 +7,10 @@ import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/controllers/chat_controller.dart';
 import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
-import 'package:flutter_web_dashboard/layout.dart';
-import 'package:flutter_web_dashboard/pages/404/error.dart';
-import 'package:flutter_web_dashboard/pages/authentication/authentication.dart';
+import 'package:flutter_web_dashboard/firebase_options.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   Get.put(MenuController());
@@ -32,28 +31,21 @@ Future<void> main() async {
       ),
     );
   } else {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
-  await Firebase.initializeApp();
 
   runApp(MyApp());
 }
 
-//tsting push/////////////
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(428, 926),
       builder: (BuildContext context, child) {
         return GetMaterialApp(
-          initialRoute: authenticationPageRoute,
-          unknownRoute: GetPage(name: '/not-found', page: () => PageNotFound(), transition: Transition.fadeIn),
-          getPages: [
-            GetPage(name: rootRoute, page: () => SiteLayout()),
-            GetPage(name: authenticationPageRoute, page: () => AuthenticationPage()),
-          ],
           debugShowCheckedModeBanner: false,
           title: 'Dashboard',
           theme: ThemeData(
@@ -67,9 +59,34 @@ class MyApp extends StatelessWidget {
             }),
             primarySwatch: Colors.blue,
           ),
-          // home: AuthenticationPage(),
+          //
+          builder: (context, child) => HomePage(child: child),
+          onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: RoutesName.LOGIN_PAGE,
+
+          //
+          // initialRoute: authenticationPageRoute,
+          // unknownRoute: GetPage(name: '/not-found', page: () => PageNotFound(), transition: Transition.fadeIn),
+          // getPages: [
+          //   GetPage(name: rootRoute, page: () => SiteLayout()),
+          //   GetPage(name: authenticationPageRoute, page: () => LoginPage()),
+          // ],
         );
       },
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final Widget? child;
+
+  const HomePage({this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    log("Mu Home Page ");
+    return Scaffold(
+      body: child,
     );
   }
 }

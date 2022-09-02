@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/pages/users/user_detail_layout_bulder.dart';
 import 'package:flutter_web_dashboard/model/driver_model.dart';
+import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -60,10 +61,12 @@ class UserTable extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 log("Row Button Pressed ");
+                                Navigator.pushNamed(context, RoutesName.USERLAYOUTBUILDER,
+                                    arguments: driverModel);
 
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                                  return UserLayOutScreen(driverModel: driverModel);
-                                }));
+                                // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                                //   return UserLayOutScreen(driverModel: driverModel);
+                                // }));
 
                                 // Get.to(() => UserLayOutScreen(
                                 //       driverModel: driverModel
