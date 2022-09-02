@@ -195,10 +195,12 @@ class _TimeTableState extends State<TimeTable> {
       if (selectedTime.value != "") {
         await ffstore
             .collection("HopOnTimeSlot")
-            .where('time', isEqualTo: selectedTime.value)
+            .where('time', isEqualTo: DateFormat('jm').format(DateTime.parse(selectedTime.value)))
             .get()
             .then((value) async {
+          log("Before if time val");
           if (value.docs.length > 0) {
+            log("Already  Exists ");
             Get.snackbar(
               "Fails",
               "Time already exists ",
@@ -206,6 +208,7 @@ class _TimeTableState extends State<TimeTable> {
               snackPosition: SnackPosition.BOTTOM,
             );
           } else {
+            log("Else adding part");
             await ffstore.collection("HopOnTimeSlot").add({
               'time': DateFormat('jm').format(DateTime.parse(selectedTime.value)),
             });

@@ -112,6 +112,7 @@ class RoutesName {
   static const String PRICEPAGE = '/price_page';
   static const String USERLAYOUTBUILDER = '/userLayOutBuilder_page';
   static const String HELPCHATSCREEN = '/helpchatscreen_page';
+  static const String OVERVIEW_PAGE = '/overview_page';
 }
 
 class RouteGenerator {
@@ -125,6 +126,9 @@ class RouteGenerator {
       //+Main Page Home Page After Login
       case RoutesName.SITELAYOUT:
         return GeneratePageRoute(widget: SiteLayout(), routeName: settings.name);
+      //overView
+      case RoutesName.OVERVIEW_PAGE:
+        return GeneratePageRoute(widget: OverviewPage(), routeName: settings.name);
       //User Page
       case RoutesName.USERPAGE:
         return GeneratePageRoute(widget: UserPage(), routeName: settings.name);
@@ -135,7 +139,7 @@ class RouteGenerator {
       case RoutesName.USERLAYOUTBUILDER:
         return GeneratePageRoute(widget: UserLayOutScreen(), routeName: settings.name);
 
-    //User helpchatScreen  Page
+      //User helpchatScreen  Page
       case RoutesName.HELPCHATSCREEN:
         return GeneratePageRoute(widget: HelpChatScreenSmall(), routeName: settings.name);
       //firrst page

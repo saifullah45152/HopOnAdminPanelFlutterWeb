@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/model/driver_model.dart';
 import 'package:flutter_web_dashboard/pages/overview/overview.dart';
+import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,9 @@ class UserDetailLarge extends StatelessWidget {
       onWillPop: () async {
         log("Inside WillPopScope");
         // Navigator.push(context, MaterialPageRoute(builder: (context) => new SiteLayout()));
-        Navigator.push(context, MaterialPageRoute(builder: (context) => new OverviewPage()));
+
+        Navigator.pushNamed(context, RoutesName.OVERVIEW_PAGE);
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => new OverviewPage()));
         return true;
       },
       child: Scaffold(
