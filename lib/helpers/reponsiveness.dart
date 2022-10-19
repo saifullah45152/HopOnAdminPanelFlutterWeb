@@ -7,16 +7,12 @@ const int mediumScreenSize = 768;
 const int smallSceenSize = 360;
 const int customScreenSize = 1100;
 
-
-
-
 class ResponsiveWidget extends StatelessWidget {
   // the custom screen size is specific to this project
   final Widget? largeScreen;
   final Widget? mediumScreen;
   final Widget? smallScreen;
   final Widget? customScreen;
-
 
   const ResponsiveWidget({
     Key? key,
@@ -26,19 +22,12 @@ class ResponsiveWidget extends StatelessWidget {
     this.customScreen,
   }) : super(key: key);
 
-  static bool isSmallScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width < mediumScreenSize;
-  }
+  static bool isSmallScreen(BuildContext context) => MediaQuery.of(context).size.width < mediumScreenSize;
 
-  static bool isMediumScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width >= mediumScreenSize &&
-        MediaQuery.of(context).size.width < largeScreenSize;
-  }
+  static bool isMediumScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width >= mediumScreenSize && MediaQuery.of(context).size.width < largeScreenSize;
 
-  static bool isLargeScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width > largeScreenSize;
-  }
-
+  static bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width > largeScreenSize;
 
   static bool isCustomSize(BuildContext context) {
     return MediaQuery.of(context).size.width <= customScreenSize &&
@@ -51,8 +40,7 @@ class ResponsiveWidget extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth >= largeScreenSize) {
           return largeScreen!;
-        } else if (constraints.maxWidth < largeScreenSize &&
-            constraints.maxWidth >= mediumScreenSize) {
+        } else if (constraints.maxWidth < largeScreenSize && constraints.maxWidth >= mediumScreenSize) {
           log("inside medium");
           return mediumScreen!;
         } else {

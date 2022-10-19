@@ -11,6 +11,7 @@ import 'package:flutter_web_dashboard/firebase_options.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   Get.put(MenuController());
@@ -31,11 +32,11 @@ Future<void> main() async {
       ),
     );
   } else {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
-
+  // Here we set the URL strategy for our web app.
+  // It is safe to call this function when running on mobile or desktop as well.
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 

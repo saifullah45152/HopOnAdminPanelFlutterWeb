@@ -22,15 +22,16 @@ class SideMenu extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
-                  height: 40,
-                ),
+                SizedBox(height: 40),
                 Row(
                   children: [
                     SizedBox(width: _width / 48),
                     Padding(
                       padding: const EdgeInsets.only(right: 12),
-                      child: Image.asset("assets/images/2-removebg-preview.png"),
+                      child: Image.asset(
+                        "assets/images/2-removebg-preview.png",
+                        height: 50,
+                      ),
                     ),
                     Flexible(
                       child: CustomText(
@@ -60,12 +61,38 @@ class SideMenu extends StatelessWidget {
                     onTap: () {
                       if (item.route == authenticationPageRoute) {
                         Get.offAllNamed(authenticationPageRoute);
-
-                        menuController.changeActiveItemTo(overviewPageDisplayName);
-                      } else if (item.route == RoutesName.USERPAGE) {
-                        Navigator.pushNamed(context, RoutesName.USERPAGE);
                         menuController.changeActiveItemTo(overviewPageDisplayName);
                       }
+                      // else if (item.route == usersPageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.USERPAGE);
+                      //   menuController.changeActiveItemTo(usersPageDisplayName);
+                      // }
+                      // else if (item.route == pricePageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.PRICEPAGE);
+                      //   menuController.changeActiveItemTo(pricePageDisplayName);
+                      // }
+                      // else if (item.route == timePagePageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.TimePage);
+                      //   menuController.changeActiveItemTo(timePageDisplayName);
+                      // }
+                      // else if (item.route == clientsPageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.TimePage);
+                      //   menuController.changeActiveItemTo(clientsPageDisplayName);
+                      // }
+                      // else if (item.route == recordPageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.RecordPage);
+                      //   menuController.changeActiveItemTo(recordPageDisplayName);
+                      // }
+                      // else if (item.route == helpChatPageRoute) {
+                      //   Navigator.pushNamed(context, RoutesName.HELPCHATSCREEN);
+                      //   menuController.changeActiveItemTo(helpChatPageDisplayName);
+                      // }
+                      //
+                      //  else if (item.route == RoutesName.USERPAGE) {
+                      //    Navigator.pushNamed(context, RoutesName.USERPAGE);
+                      //    menuController.changeActiveItemTo(overviewPageDisplayName);
+                      //  }
+
                       if (!menuController.isActive(item.name)) {
                         menuController.changeActiveItemTo(item.name);
                         if (ResponsiveWidget.isSmallScreen(context)) Get.back();

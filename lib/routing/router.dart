@@ -60,8 +60,9 @@ List<MenuItem> sideMenuItemRoutes = [
   MenuItem(pricePageDisplayName, pricePageRoute),
   MenuItem(timePageDisplayName, timePagePageRoute),
   MenuItem(clientsPageDisplayName, clientsPageRoute),
-  MenuItem(ActiveDriverPageDisplayName, activeDriverPagePageRoute),
-  MenuItem(ReservationsPageDisplayName, reservationPagePageRoute),
+  //+Commented
+  // MenuItem(ActiveDriverPageDisplayName, activeDriverPagePageRoute),
+  // MenuItem(ReservationsPageDisplayName, reservationPagePageRoute),
   MenuItem(recordPageDisplayName, recordPageRoute),
   MenuItem(helpChatPageDisplayName, helpChatPageRoute),
 
@@ -110,6 +111,8 @@ class RoutesName {
   static const String SITELAYOUT = '/SiteLayout';
   static const String USERPAGE = '/user_page';
   static const String PRICEPAGE = '/price_page';
+  static const String TimePage = '/time_page';
+  static const String RecordPage = '/record_page';
   static const String USERLAYOUTBUILDER = '/userLayOutBuilder_page';
   static const String HELPCHATSCREEN = '/helpchatscreen_page';
   static const String OVERVIEW_PAGE = '/overview_page';
@@ -117,13 +120,9 @@ class RoutesName {
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //
     switch (settings.name) {
-
-      //login Page
       case RoutesName.LOGIN_PAGE:
         return GeneratePageRoute(widget: LoginPage(), routeName: settings.name);
-      //+Main Page Home Page After Login
       case RoutesName.SITELAYOUT:
         return GeneratePageRoute(widget: SiteLayout(), routeName: settings.name);
       //overView
@@ -135,6 +134,12 @@ class RouteGenerator {
       //Price Page
       case RoutesName.PRICEPAGE:
         return GeneratePageRoute(widget: PricePage(), routeName: settings.name);
+      //Time Page
+      case RoutesName.TimePage:
+        return GeneratePageRoute(widget: TimePage(), routeName: settings.name);
+     //Record Page
+      case RoutesName.RecordPage:
+        return GeneratePageRoute(widget: RecordPage(), routeName: settings.name);
       //User LayOutBuilder  Page
       case RoutesName.USERLAYOUTBUILDER:
         return GeneratePageRoute(widget: UserLayOutScreen(), routeName: settings.name);
@@ -155,17 +160,27 @@ class RouteGenerator {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
 class GeneratePageRoute extends PageRouteBuilder {
   final Widget? widget;
   final String? routeName;
   GeneratePageRoute({this.widget, this.routeName})
       : super(
             settings: RouteSettings(name: routeName),
-            pageBuilder:
-                (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
               return widget ?? Container();
             },
-            transitionDuration: Duration(milliseconds: 500),
+            transitionDuration: Duration(milliseconds: 100),
             transitionsBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation, Widget child) {
               return SlideTransition(

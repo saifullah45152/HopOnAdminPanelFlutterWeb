@@ -94,7 +94,8 @@ class LoginPage extends StatelessWidget {
                   InkWell(
                     onTap: () async {
                       // Get.offAllNamed(rootRoute);
-                      Navigator.pushReplacementNamed(context, RoutesName.SITELAYOUT);
+                      // Navigator.pushReplacementNamed(context, RoutesName.SITELAYOUT);
+                      Navigator.pushNamed(context, RoutesName.SITELAYOUT);
 
                       // if (signInKey.currentState?.validate() ?? false) {
                       //   signInKey.currentState?.save();

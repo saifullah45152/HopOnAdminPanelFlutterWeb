@@ -8,6 +8,9 @@ import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
+
+
+
 class UserDetailLarge extends StatelessWidget {
   DriverModel? driverModel;
   UserDetailLarge({Key? key, this.driverModel}) : super(key: key);
