@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
+import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:get/get.dart';
 
 class MenuController extends GetxController {
@@ -36,7 +37,7 @@ class MenuController extends GetxController {
         return _customIcon(Icons.timer, itemName);
       case clientsPageDisplayName:
         return _customIcon(Icons.people_alt_outlined, itemName);
-      case ActiveDriverPageDisplayName:
+      case ActiveRidesPageDisplayName:
         return _customIcon(Icons.drive_eta, itemName);
       case ReservationsPageDisplayName:
         return _customIcon(Icons.drive_eta, itemName);

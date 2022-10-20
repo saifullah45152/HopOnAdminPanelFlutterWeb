@@ -13,6 +13,7 @@ import 'package:flutter_web_dashboard/layout.dart';
 import 'package:flutter_web_dashboard/layout_template.dart';
 import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
+import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,8 +69,6 @@ class MyApp extends StatelessWidget {
           ),
           // builder: (context, child) => LayoutTemplate(child: child),
 
-
-
           builder: (context, child) => SiteLayout(child: child),
           navigatorKey: NavigationService.navigatorKey,
           onGenerateRoute: RouteGenerator.generateRoute,
@@ -77,29 +76,8 @@ class MyApp extends StatelessWidget {
           // initialRoute: siteLayOutPageRoute,
 
           // initialRoute: loginPageRouteName,
-
-          // initialRoute: authenticationPageRoute,
-          // unknownRoute: GetPage(name: '/not-found', page: () => PageNotFound(), transition: Transition.fadeIn),
-          // getPages: [
-          //   GetPage(name: rootRoute, page: () => SiteLayout()),
-          //   GetPage(name: authenticationPageRoute, page: () => LoginPage()),
-          // ],
         );
       },
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  final Widget? child;
-
-  const HomePage({this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    log("Mu Home Page ");
-    return Scaffold(
-      body: child,
     );
   }
 }

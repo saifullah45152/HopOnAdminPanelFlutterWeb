@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
@@ -18,12 +20,14 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
   TextEditingController kiloMeterController = TextEditingController();
   TextEditingController bookingFeeController = TextEditingController();
   TextEditingController serviceController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
 
   @override
   void initState() {
-    kiloMeterController.text = widget.mapData!['priceperkilometer'].toString();
-    bookingFeeController.text = widget.mapData!['bookingfee'].toString();
-    serviceController.text = widget.mapData!['hoponservicefee'].toString();
+    kiloMeterController.text = widget.mapData!['pricePerMiles'].toString();
+    bookingFeeController.text = widget.mapData!['bookingFee'].toString();
+    serviceController.text = widget.mapData!['serviceFee'].toString();
+    timeController.text = widget.mapData!['timeMultiplier'].toString();
     super.initState();
   }
 
@@ -81,9 +85,11 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter a price";
-                          } else if (!GetUtils.isNum(value.trim())) {
-                            return "Please enter a valid price ";
-                          } else {
+                          }
+                          // else if (!GetUtils.isNum(value.trim())) {
+                          //   return "Please enter a valid price ";
+                          // }
+                          else {
                             return null;
                           }
                         },
@@ -101,9 +107,11 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter a price";
-                          } else if (!GetUtils.isNum(value.trim())) {
-                            return "Please enter a valid price ";
-                          } else {
+                          }
+                          // else if (!GetUtils.isNum(value.trim())) {
+                          //   return "Please enter a valid price ";
+                          // }
+                          else {
                             return null;
                           }
                         },
@@ -121,9 +129,11 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter a price";
-                          } else if (!GetUtils.isNum(value.trim())) {
-                            return "Please enter a valid number ";
-                          } else {
+                          }
+                          // else if (!GetUtils.isNum(value.trim())) {
+                          //   return "Please enter a valid number ";
+                          // }
+                          else {
                             return null;
                           }
                         },
@@ -136,13 +146,35 @@ class _HopOnGoPriceUpdateState extends State<HopOnGoPriceUpdate> {
                         ),
                       ),
                       SizedBox(height: 15),
+                      TextFormField(
+                        controller: timeController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a price";
+                          } else if (!GetUtils.isNum(value.trim())) {
+                            return "Please enter a valid number ";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Hop On Go time Fee",
+                          hintText: "2",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
                       InkWell(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            await ffstore.collection("HopOnGoPrice").doc(widget.id).update({
-                              'priceperkilometer': int.parse(kiloMeterController.text),
-                              'bookingfee': int.parse(bookingFeeController.text),
-                              'hoponservicefee': int.parse(serviceController.text),
+                            log("Updating");
+                            await ffstore.collection("HopOnPrices").doc(widget.id).update({
+                              'pricePerMiles': int.parse(kiloMeterController.text),
+                              'bookingFee':int.parse( bookingFeeController.text),
+                              'serviceFee': double.parse(serviceController.text),
+                              'timeMultiplier': int.parse(timeController.text),
                             });
                             Get.snackbar(
                               "Success",

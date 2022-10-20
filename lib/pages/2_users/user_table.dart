@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/model/driver_model.dart';
-import 'package:flutter_web_dashboard/pages/users/user_detail_layout_bulder.dart';
+import 'package:flutter_web_dashboard/pages/2_users/user_detail_layout_bulder.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 
 /// Example without datasource

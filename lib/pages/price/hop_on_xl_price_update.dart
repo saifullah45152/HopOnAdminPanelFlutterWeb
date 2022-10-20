@@ -18,12 +18,15 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
   TextEditingController kiloMeterController = TextEditingController();
   TextEditingController bookingFeeController = TextEditingController();
   TextEditingController serviceController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
 
   @override
   void initState() {
-    kiloMeterController.text = widget.mapData!['perkilometerprice'].toString();
-    bookingFeeController.text = widget.mapData!['bookingfee'].toString();
-    serviceController.text = widget.mapData!['hoponservicefee'].toString();
+    kiloMeterController.text = widget.mapData!['pricePerMiles'].toString();
+    bookingFeeController.text = widget.mapData!['bookingFee'].toString();
+    serviceController.text = widget.mapData!['serviceFee'].toString();
+    timeController.text = widget.mapData!['timeMultiplier'].toString();
+
     super.initState();
   }
 
@@ -136,13 +139,34 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
                         ),
                       ),
                       SizedBox(height: 15),
+                      TextFormField(
+                        controller: timeController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a price";
+                          } else if (!GetUtils.isNum(value.trim())) {
+                            return "Please enter a valid number ";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Hop On Go time Fee",
+                          hintText: "2",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
                       InkWell(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            await ffstore.collection("HopOnXLPrice").doc(widget.id).update({
-                              'perkilometerprice': int.parse(kiloMeterController.text),
-                              'bookingfee': int.parse(bookingFeeController.text),
-                              'hoponservicefee': int.parse(serviceController.text),
+                            await ffstore.collection("HopOnPrices").doc(widget.id).update({
+                              'pricePerMiles': int.parse(kiloMeterController.text),
+                              'bookingFee':int.parse( bookingFeeController.text),
+                              'serviceFee': double.parse(serviceController.text),
+                              'timeMultiplier': int.parse(timeController.text),
                             });
                             Get.snackbar(
                               "Success",

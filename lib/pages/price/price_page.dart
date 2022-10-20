@@ -1,9 +1,719 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
+import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
+import 'package:flutter_web_dashboard/pages/price/hop_on_go_price_update.dart';
+import 'package:flutter_web_dashboard/pages/price/hop_on_x_price_update.dart';
+import 'package:flutter_web_dashboard/pages/price/hop_on_xl_price_update.dart';
 import 'package:flutter_web_dashboard/pages/price/price_table.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
+// class PriceView extends StatelessWidget {
+//   const PriceView({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 60),
+//       alignment: Alignment.topCenter,
+//       child: ConstrainedBox(
+//         constraints: const BoxConstraints(maxWidth: 1200),
+//         child: Column(
+//           children: <Widget>[
+//             // const NavigationBarCustom(),
+//             Expanded(
+//               child: ScreenTypeLayout(
+//                 mobile: const PricePageMobile(),
+//                 desktop: const PricePageDesktop(),
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class PricePageMobile extends StatelessWidget {
+//   const PricePageMobile({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Column(
+//         children: [
+//           Obx(
+//             () => Row(
+//               children: [
+//                 Container(
+//                   margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+//                   child: CustomText(
+//                     text: menuController.activeItem.value,
+//                     size: 24,
+//                     weight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Expanded(
+//             child: ListView(
+//               children: [
+//                 Container(
+//                   padding: const EdgeInsets.all(16),
+//                   margin: EdgeInsets.only(bottom: 30),
+//                   decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     border: Border.all(color: active.withOpacity(.4), width: .5),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         offset: Offset(0, 6),
+//                         color: lightGrey.withOpacity(.1),
+//                         blurRadius: 12,
+//                       ),
+//                     ],
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: Container(
+//                     child: Center(
+//                       child: Container(
+//                         constraints: BoxConstraints(maxWidth: 600),
+//                         padding: EdgeInsets.all(24),
+//                         child: Column(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             //+HOP ON GO
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnGoPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnGoPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On.png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON GO",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                             SizedBox(height: 20),
+//                             //+HOP ON X
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnXPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               // Get.to(HopOnGoPriceUpdate(mapData: data));
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnXPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On X.png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON X",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                             SizedBox(height: 20),
+//                             //+HOP ON XL
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnXLPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               // Get.to(HopOnGoPriceUpdate(mapData: data));
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnXLPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On XL .png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON XL",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+// class PricePageDesktop extends StatelessWidget {
+//   const PricePageDesktop({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Column(
+//         children: [
+//           Obx(
+//             () => Row(
+//               children: [
+//                 Container(
+//                   margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+//                   child: CustomText(
+//                     text: menuController.activeItem.value,
+//                     size: 24,
+//                     weight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Expanded(
+//             child: ListView(
+//               children: [
+//                 Container(
+//                   padding: const EdgeInsets.all(16),
+//                   margin: EdgeInsets.only(bottom: 30),
+//                   decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     border: Border.all(color: active.withOpacity(.4), width: .5),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         offset: Offset(0, 6),
+//                         color: lightGrey.withOpacity(.1),
+//                         blurRadius: 12,
+//                       ),
+//                     ],
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: Container(
+//                     child: Center(
+//                       child: Container(
+//                         constraints: BoxConstraints(maxWidth: 600),
+//                         padding: EdgeInsets.all(24),
+//                         child: Column(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             //+HOP ON GO
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnGoPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnGoPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On.png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON GO",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                             SizedBox(height: 20),
+//                             //+HOP ON X
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnXPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               // Get.to(HopOnGoPriceUpdate(mapData: data));
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnXPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On X.png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON X",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                             SizedBox(height: 20),
+//                             //+HOP ON XL
+//                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+//                               stream: ffstore.collection("HopOnXLPrice").snapshots(),
+//                               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//                                 log("inside home stream builder");
+//                                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                                   log("inside home stream builder in waiting state");
+//                                   return Center(child: CircularProgressIndicator());
+//                                 } else if (snapshot.connectionState == ConnectionState.active ||
+//                                     snapshot.connectionState == ConnectionState.done) {
+//                                   if (snapshot.hasError) {
+//                                     return const Text('Error');
+//                                   } else if (snapshot.hasData) {
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     log("inside home has data and ${snapshot.data!.docs.length}");
+//                                     if (snapshot.data!.docs.length > 0) {
+//                                       return ListView.builder(
+//                                         scrollDirection: Axis.vertical,
+//                                         physics: const ClampingScrollPhysics(),
+//                                         shrinkWrap: true,
+//                                         itemCount: snapshot.data?.docs.length,
+//                                         itemBuilder: (context, index) {
+//                                           Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+//                                           return GestureDetector(
+//                                             onTap: () {
+//                                               // Get.to(HopOnGoPriceUpdate(mapData: data));
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (BuildContext context) => HopOnXLPriceUpdate(
+//                                                     mapData: data,
+//                                                     id: snapshot.data!.docs[index].id,
+//                                                   ),
+//                                                 ),
+//                                               );
+//                                             },
+//                                             child: Container(
+//                                               padding: EdgeInsets.all(20),
+//                                               decoration: BoxDecoration(
+//                                                 color: Colors.white60,
+//                                                 border: Border.all(color: active.withOpacity(.4), width: .5),
+//                                                 boxShadow: [
+//                                                   BoxShadow(
+//                                                     offset: Offset(0, 6),
+//                                                     color: lightGrey.withOpacity(.1),
+//                                                     blurRadius: 12,
+//                                                   ),
+//                                                 ],
+//                                                 borderRadius: BorderRadius.circular(8),
+//                                               ),
+//                                               child: Row(
+//                                                 children: [
+//                                                   Padding(
+//                                                     padding: const EdgeInsets.only(right: 12),
+//                                                     child: Image.asset(
+//                                                       "assets/images/Hop On XL .png",
+//                                                       height: 40,
+//                                                     ),
+//                                                   ),
+//                                                   SizedBox(width: 10),
+//                                                   CustomText(
+//                                                     text: "HOP ON XL",
+//                                                     weight: FontWeight.bold,
+//                                                     size: 16,
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       );
+//                                     } else {
+//                                       return Center(
+//                                         child: const Text(
+//                                           'No Recommendations For Now',
+//                                           maxLines: 2,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       );
+//                                     }
+//                                   } else {
+//                                     log("in else of hasData done on home and: ${snapshot.connectionState} and"
+//                                         " snapshot.hasData: ${snapshot.hasData}");
+//                                     return Center(child: const Text('No Recommendations For Now'));
+//                                   }
+//                                 } else {
+//                                   log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+//                                   return Center(child: Text('State: ${snapshot.connectionState}'));
+//                                 }
+//                               },
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class PricePage extends StatelessWidget {
   const PricePage({Key? key}) : super(key: key);
@@ -14,10 +724,10 @@ class PricePage extends StatelessWidget {
       child: Column(
         children: [
           Obx(
-                () => Row(
+            () => Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                  margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 10),
                   child: CustomText(
                     text: menuController.activeItem.value,
                     size: 24,
@@ -30,7 +740,319 @@ class PricePage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                PriceTable(),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  margin: EdgeInsets.only(bottom: 30),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: active.withOpacity(.4), width: .5),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 6),
+                        color: lightGrey.withOpacity(.1),
+                        blurRadius: 12,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Container(
+                    child: Center(
+                      child: Container(
+                        constraints: BoxConstraints(maxWidth: 600),
+                        padding: EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //+HOP ON GO
+                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                              stream: ffstore
+                                  .collection("HopOnPrices")
+                                  .where("vehicleType", isEqualTo: 'HopOnGo')
+                                  .snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                log("inside home stream builder");
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  log("inside home stream builder in waiting state");
+                                  return Center(child: CircularProgressIndicator());
+                                } else if (snapshot.connectionState == ConnectionState.active ||
+                                    snapshot.connectionState == ConnectionState.done) {
+                                  if (snapshot.hasError) {
+                                    return const Text('Error');
+                                  } else if (snapshot.hasData) {
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    if (snapshot.data!.docs.length > 0) {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        physics: const ClampingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data?.docs.length,
+                                        itemBuilder: (context, index) {
+                                          Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (BuildContext context) => HopOnGoPriceUpdate(
+                                                    mapData: data,
+                                                    id: snapshot.data!.docs[index].id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(20),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white60,
+                                                border: Border.all(color: active.withOpacity(.4), width: .5),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: Offset(0, 6),
+                                                    color: lightGrey.withOpacity(.1),
+                                                    blurRadius: 12,
+                                                  ),
+                                                ],
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 12),
+                                                    child: Image.asset(
+                                                      "assets/images/Hop On.png",
+                                                      height: 40,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  CustomText(
+                                                    text: "HOP ON GO",
+                                                    weight: FontWeight.bold,
+                                                    size: 16,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: const Text(
+                                          'No Recommendations For Now',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    log("in else of hasData done on home and: ${snapshot.connectionState} and"
+                                        " snapshot.hasData: ${snapshot.hasData}");
+                                    return Center(child: const Text('No Recommendations For Now'));
+                                  }
+                                } else {
+                                  log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+                                  return Center(child: Text('State: ${snapshot.connectionState}'));
+                                }
+                              },
+                            ),
+                            SizedBox(height: 20),
+                            //+HOP ON X
+                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                              stream: ffstore
+                                  .collection("HopOnPrices")
+                                  .where("vehicleType", isEqualTo: 'HopOnX')
+                                  .snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                log("inside home stream builder");
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  log("inside home stream builder in waiting state");
+                                  return Center(child: CircularProgressIndicator());
+                                } else if (snapshot.connectionState == ConnectionState.active ||
+                                    snapshot.connectionState == ConnectionState.done) {
+                                  if (snapshot.hasError) {
+                                    return const Text('Error');
+                                  } else if (snapshot.hasData) {
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    if (snapshot.data!.docs.length > 0) {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        physics: const ClampingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data?.docs.length,
+                                        itemBuilder: (context, index) {
+                                          Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                                          return GestureDetector(
+                                            onTap: () {
+                                              // Get.to(HopOnGoPriceUpdate(mapData: data));
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (BuildContext context) => HopOnXPriceUpdate(
+                                                    mapData: data,
+                                                    id: snapshot.data!.docs[index].id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(20),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white60,
+                                                border: Border.all(color: active.withOpacity(.4), width: .5),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: Offset(0, 6),
+                                                    color: lightGrey.withOpacity(.1),
+                                                    blurRadius: 12,
+                                                  ),
+                                                ],
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 12),
+                                                    child: Image.asset(
+                                                      "assets/images/Hop On X.png",
+                                                      height: 40,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  CustomText(
+                                                    text: "HOP ON X",
+                                                    weight: FontWeight.bold,
+                                                    size: 16,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: const Text(
+                                          'No Recommendations For Now',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    log("in else of hasData done on home and: ${snapshot.connectionState} and"
+                                        " snapshot.hasData: ${snapshot.hasData}");
+                                    return Center(child: const Text('No Recommendations For Now'));
+                                  }
+                                } else {
+                                  log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+                                  return Center(child: Text('State: ${snapshot.connectionState}'));
+                                }
+                              },
+                            ),
+                            SizedBox(height: 20),
+                            //+HOP ON XL
+                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                              stream: ffstore
+                                  .collection("HopOnPrices")
+                                  .where("vehicleType", isEqualTo: 'HopOnXL')
+                                  .snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                log("inside home stream builder");
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  log("inside home stream builder in waiting state");
+                                  return Center(child: CircularProgressIndicator());
+                                } else if (snapshot.connectionState == ConnectionState.active ||
+                                    snapshot.connectionState == ConnectionState.done) {
+                                  if (snapshot.hasError) {
+                                    return const Text('Error');
+                                  } else if (snapshot.hasData) {
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    log("inside home has data and ${snapshot.data!.docs.length}");
+                                    if (snapshot.data!.docs.length > 0) {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        physics: const ClampingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data?.docs.length,
+                                        itemBuilder: (context, index) {
+                                          Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                                          return GestureDetector(
+                                            onTap: () {
+                                              // Get.to(HopOnGoPriceUpdate(mapData: data));
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (BuildContext context) => HopOnXLPriceUpdate(
+                                                    mapData: data,
+                                                    id: snapshot.data!.docs[index].id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(20),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white60,
+                                                border: Border.all(color: active.withOpacity(.4), width: .5),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: Offset(0, 6),
+                                                    color: lightGrey.withOpacity(.1),
+                                                    blurRadius: 12,
+                                                  ),
+                                                ],
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 12),
+                                                    child: Image.asset(
+                                                      "assets/images/Hop On XL .png",
+                                                      height: 40,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  CustomText(
+                                                    text: "HOP ON XL",
+                                                    weight: FontWeight.bold,
+                                                    size: 16,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: const Text(
+                                          'No Recommendations For Now',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    log("in else of hasData done on home and: ${snapshot.connectionState} and"
+                                        " snapshot.hasData: ${snapshot.hasData}");
+                                    return Center(child: const Text('No Recommendations For Now'));
+                                  }
+                                } else {
+                                  log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
+                                  return Center(child: Text('State: ${snapshot.connectionState}'));
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
