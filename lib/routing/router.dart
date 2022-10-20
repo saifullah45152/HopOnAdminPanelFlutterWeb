@@ -6,6 +6,8 @@ import 'package:flutter_web_dashboard/pages/2_users/user_detail_layout_bulder.da
 import 'package:flutter_web_dashboard/pages/2_users/users.dart';
 import 'package:flutter_web_dashboard/pages/404/error.dart';
 import 'package:flutter_web_dashboard/pages/help_chat/chat_screen_small.dart';
+import 'package:flutter_web_dashboard/pages/help_chat/chat_table.dart';
+import 'package:flutter_web_dashboard/pages/help_chat/help_chat_page.dart';
 import 'package:flutter_web_dashboard/pages/overview/overview.dart';
 import 'package:flutter_web_dashboard/pages/price/price_page.dart';
 import 'package:flutter_web_dashboard/pages/record/record_page.dart';
@@ -57,7 +59,7 @@ class RouteGenerator {
       case userLayOutPage:
         return _getPageRoute(UserLayOutScreen(), settings);
       case helpChatPageRoute:
-        return _getPageRoute(HelpChatScreenSmall(), settings);
+        return _getPageRoute(HelpChatPage(), settings);
       default:
         return _getPageRoute(PageNotFound(), settings);
     }

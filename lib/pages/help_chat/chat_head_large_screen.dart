@@ -133,7 +133,7 @@ class _ReadMessageState extends State<ReadMessage> {
       onTap: () async {
         var chatRoomMap;
         chatRoomMap = await chatController.getAChatRoomInfo(widget.chatRoomId);
-
+        //+COmmented
         // Navigator.pushNamed(context, RoutesName.HELPCHATSCREEN,
         //     arguments: chatRoomMap);
         // Get.to(() => HelpChatScreenSmall(docs: chatRoomMap), transition: Transition.leftToRight);
@@ -229,13 +229,9 @@ class _ReadMessageState extends State<ReadMessage> {
                     ),
                     trailing: Expanded(
                       child: Text(
-                        DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes <
-                                60
+                        DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes < 60
                             ? "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inMinutes} m ago"
-                            : DateTime.now()
-                                        .difference(DateTime.fromMillisecondsSinceEpoch(widget.time))
-                                        .inHours <
-                                    24
+                            : DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inHours < 24
                                 ? "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inHours} hrs ago"
                                 : "${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.time)).inDays} days ago",
                         style: GreyLightTextSmall,
