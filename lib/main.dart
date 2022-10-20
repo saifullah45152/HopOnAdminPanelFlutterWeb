@@ -1,20 +1,18 @@
 import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/controllers/chat_controller.dart';
 import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/firebase_options.dart';
-import 'package:flutter_web_dashboard/helpers/screen_handler.dart';
 import 'package:flutter_web_dashboard/layout.dart';
 import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
-import 'package:flutter_web_dashboard/widgets/large_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -42,8 +40,7 @@ Future<void> main() async {
   } else {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
-  // Here we set the URL strategy for our web app.
-  // It is safe to call this function when running on mobile or desktop as well.
+
   setPathUrlStrategy();
   runApp(MyApp());
 }
@@ -75,7 +72,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: RouteGenerator.generateRoute,
           initialRoute: loginPageRouteName,
 
-          //
+
           // initialRoute: authenticationPageRoute,
           // unknownRoute: GetPage(name: '/not-found', page: () => PageNotFound(), transition: Transition.fadeIn),
           // getPages: [

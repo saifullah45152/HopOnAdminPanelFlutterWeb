@@ -6,8 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/model/chat_head_model.dart';
-import 'package:flutter_web_dashboard/pages/help_chat/chat_screen_small.dart';
-import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_dashboard/constants/controllers.dart';
-import 'package:flutter_web_dashboard/helpers/local_navigator.dart';
-import 'package:flutter_web_dashboard/routing/router.dart';
-import 'package:flutter_web_dashboard/widgets/side_menu.dart';
 
 class ScreenHandler extends StatelessWidget {
   final Widget? child;

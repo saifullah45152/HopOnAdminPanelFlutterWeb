@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
-import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
