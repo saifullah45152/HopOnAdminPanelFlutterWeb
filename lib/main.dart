@@ -13,6 +13,7 @@ import 'package:flutter_web_dashboard/layout.dart';
 import 'package:flutter_web_dashboard/layout_template.dart';
 import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/pages/new_chat_ui/new_chat_ui.dart';
+import 'package:flutter_web_dashboard/pages/record/record_page.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
@@ -71,11 +72,11 @@ class MyApp extends StatelessWidget {
           ),
           // builder: (context, child) => LayoutTemplate(child: child),
 
-          // builder: (context, child) => SiteLayout(child: child),
-          // navigatorKey: NavigationService.navigatorKey,
-          // onGenerateRoute: RouteGenerator.generateRoute,
-          // initialRoute: loginPageRouteName,
-          home: NewChatUI(),
+          builder: (context, child) => SiteLayout(child: child),
+          navigatorKey: NavigationService.navigatorKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: loginPageRouteName,
+
           // initialRoute: siteLayOutPageRoute,
 
           // initialRoute: loginPageRouteName,

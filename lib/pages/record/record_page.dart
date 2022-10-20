@@ -17,121 +17,127 @@ class RecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Obx(
-            () => Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(
-                      top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
-                  child: CustomText(
-                    text: menuController.activeItem.value,
-                    size: 24,
-                    weight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  margin: EdgeInsets.only(bottom: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border:
-                        Border.all(color: active.withOpacity(.4), width: .5),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 6),
-                        color: lightGrey.withOpacity(.1),
-                        blurRadius: 12,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Container(
-                    child: Center(
-                      child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: ffstore.collection("RideRecord").snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (snapshot.connectionState ==
-                                  ConnectionState.active ||
-                              snapshot.connectionState ==
-                                  ConnectionState.done) {
-                            if (snapshot.hasError) {
-                              return const Text('Error');
-                            } else if (snapshot.hasData) {
-                              if (snapshot.data!.docs.length > 0) {
-                                return ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  physics: const ClampingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data?.docs.length,
-                                  itemBuilder: (context, index) {
-                                    bool type = snapshot.data!.docs[index]
-                                        ['isSchedulePackageRequest'];
-                                    //true for package
-                                    if (type) {
-                                      PackageRequestModel packageRequestModel =
-                                          PackageRequestModel.fromJson(
-                                              snapshot.data!.docs[index].data()
-                                                  as Map<String, dynamic>);
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            // Obx(
+            //   () => Row(
+            //     children: [
+            //       Container(
+            //         margin: EdgeInsets.only(
+            //             top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+            //         child: CustomText(
+            //           text: menuController.activeItem.value,
+            //           size: 24,
+            //           weight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    margin: EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border:
+                          Border.all(color: active.withOpacity(.4), width: .5),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 6),
+                          color: lightGrey.withOpacity(.1),
+                          blurRadius: 12,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Container(
+                      child: Center(
+                        child:
+                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                          stream: ffstore.collection("RideRecord").snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.connectionState ==
+                                    ConnectionState.active ||
+                                snapshot.connectionState ==
+                                    ConnectionState.done) {
+                              if (snapshot.hasError) {
+                                return const Text('Error');
+                              } else if (snapshot.hasData) {
+                                if (snapshot.data!.docs.length > 0) {
+                                  return ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    physics: const ClampingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data?.docs.length,
+                                    itemBuilder: (context, index) {
+                                      bool type = snapshot.data!.docs[index]
+                                          ['isSchedulePackageRequest'];
+                                      //true for package
+                                      if (type) {
+                                        PackageRequestModel
+                                            packageRequestModel =
+                                            PackageRequestModel.fromJson(
+                                                snapshot.data!.docs[index]
+                                                        .data()
+                                                    as Map<String, dynamic>);
 
-                                      return PackageRequestCard(
-                                          packageRequestModel:
-                                              packageRequestModel,
-                                          id: snapshot.data!.docs[index].id);
-                                    } else {
-                                      RequestModel rideRequestModel =
-                                          RequestModel.fromJson(
-                                              snapshot.data!.docs[index].data()
-                                                  as Map<String, dynamic>);
-                                      return RideRequestCard(
-                                          requestModel: rideRequestModel,
-                                          id: snapshot.data!.docs[index].id);
-                                    }
-                                  },
-                                );
+                                        return PackageRequestCard(
+                                            packageRequestModel:
+                                                packageRequestModel,
+                                            id: snapshot.data!.docs[index].id);
+                                      } else {
+                                        RequestModel rideRequestModel =
+                                            RequestModel.fromJson(snapshot
+                                                    .data!.docs[index]
+                                                    .data()
+                                                as Map<String, dynamic>);
+                                        return RideRequestCard(
+                                            requestModel: rideRequestModel,
+                                            id: snapshot.data!.docs[index].id);
+                                      }
+                                    },
+                                  );
+                                } else {
+                                  return Center(
+                                    child: const Text(
+                                      'No Recommendations For No',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  );
+                                }
                               } else {
+                                log("in else of hasData done on home and: ${snapshot.connectionState} and"
+                                    " snapshot.hasData: ${snapshot.hasData}");
                                 return Center(
-                                  child: const Text(
-                                    'No Recommendations For No',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                );
+                                    child: const Text(
+                                        'No Recommendations For Now'));
                               }
                             } else {
-                              log("in else of hasData done on home and: ${snapshot.connectionState} and"
-                                  " snapshot.hasData: ${snapshot.hasData}");
+                              log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
                               return Center(
-                                  child:
-                                      const Text('No Recommendations For Now'));
+                                  child: Text(
+                                      'State: ${snapshot.connectionState}'));
                             }
-                          } else {
-                            log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
-                            return Center(
-                                child:
-                                    Text('State: ${snapshot.connectionState}'));
-                          }
-                        },
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -188,220 +194,256 @@ class RideRequestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 25.w),
+      padding: EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 20,
+      ),
+      decoration: BoxDecoration(
+        color: kPrimaryColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.16),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 30.h),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
               Container(
-                width: Get.width * 0.6,
-                child: Text(
-                  "Pickup location",
-                  style: BlackSmallTextStyle,
-                  overflow: TextOverflow.ellipsis,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: KSecondaryColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          color: KPrimaryColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      child: VerticalDivider(
+                        color: KBlackColor.withOpacity(0.2),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: KGreyColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          color: KSecondaryColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 15,
               ),
-              Container(
-                width: Get.width * 0.7,
-                child: Text(
-                  "${requestModel?.fromAddress ?? ""}",
-                  style: BlackSmallTextStyle,
-                  overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Pickup location",
+                      style: BlackSmallDarkStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "${requestModel?.fromAddress ?? ""}",
+                      style: BlackSmallTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Drop-off location",
+                      style: BlackSmallDarkStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "${requestModel?.toAddress ?? ""}",
+                      style: BlackSmallTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: Get.width * 0.6,
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
-                  "Drop-off location",
-                  style: BlackSmallTextStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: Get.width * 0.7,
-                child: Text(
-                  "${requestModel?.toAddress ?? ""}",
-                  style: BlackSmallTextStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )
             ],
           ),
-          SizedBox(height: 30.h),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              children: [
-                ListTile(
-                  visualDensity: VisualDensity(
-                    vertical: -4,
-                  ),
-                  leading: Text(
-                    "Type of ride",
-                    style: BlackSmallDarkStyle,
-                  ),
-                  trailing: Text(
-                    "Ride Request ",
-                    style: BlackSmallDarkStyle,
-                  ),
-                ),
-                ListTile(
-                  visualDensity: VisualDensity(
-                    vertical: -4,
-                  ),
-                  leading: Text(
-                    "${requestModel?.selectedVehicle ?? ""}",
-                    style: BlackSmallDarkStyle,
-                  ),
-                  trailing: Text(
-                    "${requestModel?.numberOfSeats ?? ""}",
-                    style: BlackSmallDarkStyle,
-                  ),
-                ),
-                ListTile(
-                  visualDensity: VisualDensity(
-                    vertical: -4,
-                  ),
-                  leading: Text(
-                    "Date",
-                    style: BlackSmallDarkStyle,
-                  ),
-                  trailing: Text(
-                    "Time",
-                    style: BlackSmallDarkStyle,
-                  ),
-                ),
-                ListTile(
-                  visualDensity: VisualDensity(
-                    vertical: -4,
-                  ),
-                  leading: Text(
-                    "${requestModel?.requestDate ?? ""}",
-                    style: BlackSmallDarkStyle,
-                  ),
-                  trailing: Text(
-                    "${requestModel?.requestTime ?? ""}",
-                    style: BlackSmallDarkStyle,
-                  ),
-                ),
-              ],
-            ),
+          SizedBox(
+            height: 30,
           ),
-          SizedBox(height: 15.h),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Type of Ride",
+                style: TextStyle(
+                  color: KSecondaryColor,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                "Ride Request ",
+                style: BlackSmallTextStyle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${requestModel?.selectedVehicle ?? ""}",
+                style: BlackSmallDarkStyle,
+              ),
+              Text(
+                "${requestModel?.numberOfSeats ?? ""}",
+                style: BlackSmallTextStyle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Date",
+                style: BlackSmallDarkStyle,
+              ),
+              Text(
+                "Time",
+                style: BlackSmallTextStyle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${requestModel?.requestDate ?? ""}",
+                style: BlackSmallDarkStyle,
+              ),
+              Text(
+                "${requestModel?.requestTime ?? ""}",
+                style: BlackSmallTextStyle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Pickup Time",
+                style: BlackSmallDarkStyle,
+              ),
+              Text(
+                "${requestModel!.requestTime}",
+                style: BlackSmallTextStyle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IntrinsicWidth(
+                child: Column(
                   children: [
                     Text(
                       "Est. Distance",
+                      style: BlackSmallDarkStyle,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "${((requestModel?.distanceInKm ?? 0) * 0.62137).toStringAsFixed(2)} miles",
+                      textAlign: TextAlign.center,
+
+                      // "${requestModel?.distanceInKm ?? 0.0} Km",
                       style: BlackSmallTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Container(
-                            child: Text(
-                          "${((requestModel?.distanceInKm ?? 0) * 0.62137).toStringAsFixed(2)} miles",
-
-                          // "${requestModel?.distanceInKm ?? 0.0} Km",
-                          style: BlackSmallTextStyle,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                      ],
-                    ),
                   ],
                 ),
-                Column(
+              ),
+              IntrinsicWidth(
+                child: Column(
                   children: [
                     Text(
                       "Est. Time",
-                      style: BlackSmallTextStyle,
+                      style: BlackSmallDarkStyle,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 5),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Container(
-                            // width: Get.width * 0.2,
-                            child: Text(
-                          "${requestModel?.estimatedTime}",
-                          style: BlackSmallTextStyle,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                      ],
+                    Text(
+                      "${requestModel?.estimatedTime}",
+                      style: BlackSmallTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
-                Column(
+              ),
+              IntrinsicWidth(
+                child: Column(
                   children: [
                     Text(
                       "Est. Price",
-                      style: BlackSmallTextStyle,
+                      style: BlackSmallDarkStyle,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 5),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Container(
-                          // width: Get.width * 0.2,
-                          child: Text(
-                            "${requestModel?.estimatedFare}",
-                            style: BlackSmallTextStyle,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "${requestModel?.estimatedFare}",
+                      style: BlackSmallTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Card(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
               ),
-              child: ListTile(
-                leading: Text(
-                  "Pickup Time",
-                  style: BlackSmallTextStyle,
-                ),
-                trailing: Text(
-                  "${requestModel!.requestTime}",
-                  style: BlackSmallTextStyle,
-                ),
-              ),
-            ),
+            ],
           ),
-          SizedBox(height: 25.h),
         ],
       ),
     );
@@ -443,10 +485,11 @@ class PackageRequestCard extends StatelessWidget {
                       ),
                     ),
                     Container(
-                        height: 50,
-                        child: VerticalDivider(
-                          color: KBlackColor.withOpacity(0.2),
-                        )),
+                      height: 50,
+                      child: VerticalDivider(
+                        color: KBlackColor.withOpacity(0.2),
+                      ),
+                    ),
                     Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
