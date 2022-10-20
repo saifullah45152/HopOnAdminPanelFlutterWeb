@@ -39,7 +39,8 @@ Future<void> main() async {
         measurementId: "G-5BCFMKK7BK",
       ),
     );
-  } else {
+  }
+  else {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
 
