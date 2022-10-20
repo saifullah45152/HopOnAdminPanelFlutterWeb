@@ -161,16 +161,6 @@ class RouteGenerator {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 class GeneratePageRoute extends PageRouteBuilder {
   final Widget? widget;
   final String? routeName;
@@ -180,7 +170,7 @@ class GeneratePageRoute extends PageRouteBuilder {
             pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
               return widget ?? Container();
             },
-            transitionDuration: Duration(milliseconds: 100),
+            transitionDuration: Duration(milliseconds: 5000),
             transitionsBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation, Widget child) {
               return SlideTransition(

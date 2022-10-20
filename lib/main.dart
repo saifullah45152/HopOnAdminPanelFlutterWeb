@@ -3,12 +3,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/controllers/chat_controller.dart';
 import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/firebase_options.dart';
+import 'package:flutter_web_dashboard/helpers/screen_handler.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
+import 'package:flutter_web_dashboard/widgets/large_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -61,9 +64,10 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //
-          builder: (context, child) => HomePage(child: child),
+          builder: (context, child) => ScreenHandler(child: child),
+          navigatorKey: navigationController.navigatorKey,
           onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: RoutesName.LOGIN_PAGE,
+          initialRoute: RoutesName.SITELAYOUT,
 
           //
           // initialRoute: authenticationPageRoute,
