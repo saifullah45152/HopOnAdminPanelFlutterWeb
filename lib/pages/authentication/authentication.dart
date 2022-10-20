@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
+import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
+import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
+import 'package:flutter_web_dashboard/services/navigation_service.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,7 +98,14 @@ class LoginPage extends StatelessWidget {
                     onTap: () async {
                       // Get.offAllNamed(rootRoute);
                       // Navigator.pushReplacementNamed(context, RoutesName.SITELAYOUT);
-                      Navigator.pushNamed(context, RoutesName.SITELAYOUT);
+
+                      locator<NavigationService>().navigateTo(timePagePageRoute);
+
+                      // NavigationService.navigateTo(timePagePageRoute);
+                      //
+                      // locator<NavigationController>().navigateTo(timePagePageRoute);
+
+                      // Navigator.pushNamed(context, RoutesName.SITELAYOUT);
 
                       // if (signInKey.currentState?.validate() ?? false) {
                       //   signInKey.currentState?.save();

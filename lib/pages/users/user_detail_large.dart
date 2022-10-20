@@ -22,7 +22,7 @@ class UserDetailLarge extends StatelessWidget {
         log("Inside WillPopScope");
         // Navigator.push(context, MaterialPageRoute(builder: (context) => new SiteLayout()));
 
-        Navigator.pushNamed(context, RoutesName.OVERVIEW_PAGE);
+        // Navigator.pushNamed(context, RoutesName.OVERVIEW_PAGE);
         // Navigator.push(context, MaterialPageRoute(builder: (context) => new OverviewPage()));
         return true;
       },

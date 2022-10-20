@@ -136,8 +136,8 @@ class _ReadMessageState extends State<ReadMessage> {
         var chatRoomMap;
         chatRoomMap = await chatController.getAChatRoomInfo(widget.chatRoomId);
 
-        Navigator.pushNamed(context, RoutesName.HELPCHATSCREEN,
-            arguments: chatRoomMap);
+        // Navigator.pushNamed(context, RoutesName.HELPCHATSCREEN,
+        //     arguments: chatRoomMap);
         // Get.to(() => HelpChatScreenSmall(docs: chatRoomMap), transition: Transition.leftToRight);
       },
       child: Card(

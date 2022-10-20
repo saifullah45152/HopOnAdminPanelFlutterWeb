@@ -26,7 +26,7 @@ class _FirstPageState extends State<FirstPage> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, RoutesName.SECOND_PAGE, arguments: "Text From First Page ");
+                // Navigator.pushNamed(context, RoutesName.SECOND_PAGE, arguments: "Text From First Page ");
               },
               child: const Text("NAVIGATE")),
         ],

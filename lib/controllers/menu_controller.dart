@@ -23,7 +23,7 @@ class MenuController extends GetxController {
   isActive(String itemName) => activeItem.value == itemName;
 
   Widget returnIconFor(String itemName) {
-    log("item name is menu_controller  $itemName");
+
 
     switch (itemName) {
       //overView

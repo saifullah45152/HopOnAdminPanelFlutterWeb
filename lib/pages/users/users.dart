@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
@@ -10,6 +12,8 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(" UserPage   page coming ");
+
     return Container(
       child: Column(
         children: [

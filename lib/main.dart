@@ -10,13 +10,18 @@ import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/firebase_options.dart';
 import 'package:flutter_web_dashboard/helpers/screen_handler.dart';
+import 'package:flutter_web_dashboard/layout.dart';
+import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
+import 'package:flutter_web_dashboard/services/navigation_service.dart';
 import 'package:flutter_web_dashboard/widgets/large_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
+  setupLocator();
+
   Get.put(MenuController());
   Get.put(NavigationController());
   Get.put(ChatController());
@@ -64,10 +69,11 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //
-          builder: (context, child) => ScreenHandler(child: child),
-          navigatorKey: navigationController.navigatorKey,
+          // builder: (context, child) => ScreenHandler(child: child),
+          builder: (context, child) => SiteLayout(child: child),
+          navigatorKey: NavigationService.navigatorKey,
           onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: RoutesName.SITELAYOUT,
+          initialRoute: loginPageRouteName,
 
           //
           // initialRoute: authenticationPageRoute,

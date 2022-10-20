@@ -13,7 +13,7 @@ class ScreenHandler extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: SideMenu()),
+        // Expanded(child: SideMenu()),
         Expanded(
           flex: 5,
           child: Container(
