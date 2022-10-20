@@ -29,10 +29,9 @@ class UserDetailLarge extends StatelessWidget {
         body: Center(
           child: SingleChildScrollView(
             child: Container(
-              constraints: BoxConstraints(maxWidth: 500),
               padding: EdgeInsets.all(24),
               // padding: const EdgeInsets.all(16),
-              margin: EdgeInsets.all(30),
+              margin: EdgeInsets.all(15),
               width: Get.width,
               decoration: BoxDecoration(
                 color: Colors.white,

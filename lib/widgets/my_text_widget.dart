@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyText extends StatelessWidget {
   var text, color, weight, align, decoration, fontFamily, fontStyle;
@@ -25,7 +26,7 @@ class MyText extends StatelessWidget {
     this.align,
     this.height,
     this.overFlow,
-    this.fontFamily = 'Poppins',
+    this.fontFamily,
     this.paddingTop = 0,
     this.paddingRight = 0,
     this.paddingLeft = 0,
@@ -54,7 +55,6 @@ class MyText extends StatelessWidget {
             fontWeight: weight,
             decoration: decoration,
             height: height,
-            fontFamily: '$fontFamily',
           ),
           textAlign: align,
           maxLines: maxlines,

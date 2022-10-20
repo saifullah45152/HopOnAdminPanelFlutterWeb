@@ -24,7 +24,8 @@ class RecordPage extends StatelessWidget {
             () => Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                  margin: EdgeInsets.only(
+                      top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                   child: CustomText(
                     text: menuController.activeItem.value,
                     size: 24,
@@ -42,7 +43,8 @@ class RecordPage extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: active.withOpacity(.4), width: .5),
+                    border:
+                        Border.all(color: active.withOpacity(.4), width: .5),
                     boxShadow: [
                       BoxShadow(
                         offset: Offset(0, 6),
@@ -56,11 +58,15 @@ class RecordPage extends StatelessWidget {
                     child: Center(
                       child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                         stream: ffstore.collection("RideRecord").snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());
-                          } else if (snapshot.connectionState == ConnectionState.active ||
-                              snapshot.connectionState == ConnectionState.done) {
+                          } else if (snapshot.connectionState ==
+                                  ConnectionState.active ||
+                              snapshot.connectionState ==
+                                  ConnectionState.done) {
                             if (snapshot.hasError) {
                               return const Text('Error');
                             } else if (snapshot.hasData) {
@@ -71,20 +77,27 @@ class RecordPage extends StatelessWidget {
                                   shrinkWrap: true,
                                   itemCount: snapshot.data?.docs.length,
                                   itemBuilder: (context, index) {
-                                    bool type = snapshot.data!.docs[index]['isSchedulePackageRequest'];
+                                    bool type = snapshot.data!.docs[index]
+                                        ['isSchedulePackageRequest'];
                                     //true for package
                                     if (type) {
-                                      PackageRequestModel packageRequestModel = PackageRequestModel.fromJson(
-                                          snapshot.data!.docs[index].data() as Map<String, dynamic>);
+                                      PackageRequestModel packageRequestModel =
+                                          PackageRequestModel.fromJson(
+                                              snapshot.data!.docs[index].data()
+                                                  as Map<String, dynamic>);
 
                                       return PackageRequestCard(
-                                          packageRequestModel: packageRequestModel,
+                                          packageRequestModel:
+                                              packageRequestModel,
                                           id: snapshot.data!.docs[index].id);
                                     } else {
-                                      RequestModel rideRequestModel = RequestModel.fromJson(
-                                          snapshot.data!.docs[index].data() as Map<String, dynamic>);
+                                      RequestModel rideRequestModel =
+                                          RequestModel.fromJson(
+                                              snapshot.data!.docs[index].data()
+                                                  as Map<String, dynamic>);
                                       return RideRequestCard(
-                                          requestModel: rideRequestModel, id: snapshot.data!.docs[index].id);
+                                          requestModel: rideRequestModel,
+                                          id: snapshot.data!.docs[index].id);
                                     }
                                   },
                                 );
@@ -100,11 +113,15 @@ class RecordPage extends StatelessWidget {
                             } else {
                               log("in else of hasData done on home and: ${snapshot.connectionState} and"
                                   " snapshot.hasData: ${snapshot.hasData}");
-                              return Center(child: const Text('No Recommendations For Now'));
+                              return Center(
+                                  child:
+                                      const Text('No Recommendations For Now'));
                             }
                           } else {
                             log("in last else of ConnectionState.done and: ${snapshot.connectionState}");
-                            return Center(child: Text('State: ${snapshot.connectionState}'));
+                            return Center(
+                                child:
+                                    Text('State: ${snapshot.connectionState}'));
                           }
                         },
                       ),
@@ -165,6 +182,7 @@ class RecordPage extends StatelessWidget {
 class RideRequestCard extends StatelessWidget {
   RequestModel? requestModel;
   String? id;
+
   RideRequestCard({Key? key, this.requestModel, this.id}) : super(key: key);
 
   @override
@@ -376,19 +394,9 @@ class RideRequestCard extends StatelessWidget {
                   "Pickup Time",
                   style: BlackSmallTextStyle,
                 ),
-                trailing: Container(
-                  width: 90,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        "${requestModel!.requestTime}",
-                        style: BlackSmallTextStyle,
-                      ),
-                    ],
-                  ),
+                trailing: Text(
+                  "${requestModel!.requestTime}",
+                  style: BlackSmallTextStyle,
                 ),
               ),
             ),
@@ -403,7 +411,9 @@ class RideRequestCard extends StatelessWidget {
 class PackageRequestCard extends StatelessWidget {
   PackageRequestModel? packageRequestModel;
   String? id;
-  PackageRequestCard({Key? key, this.packageRequestModel, this.id}) : super(key: key);
+
+  PackageRequestCard({Key? key, this.packageRequestModel, this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -460,30 +470,23 @@ class PackageRequestCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: Get.width * 0.6,
-                    child: Text(
-                      "Pickup location",
-                      style: BlackSmallTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  Text(
+                    "Pickup location",
+                    style: BlackSmallTextStyle,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    width: Get.width * 0.7,
-                    child: Text(
-                      "${packageRequestModel?.fromAddress ?? ""}",
-                      style: BlackSmallTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  Text(
+                    "${packageRequestModel?.fromAddress ?? ""}",
+                    style: BlackSmallTextStyle,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Container(
-                    width: Get.width * 0.6,
                     margin: EdgeInsets.only(top: 10),
                     child: Text(
                       "Drop-off location",
@@ -494,14 +497,11 @@ class PackageRequestCard extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    width: Get.width * 0.7,
-                    child: Text(
-                      "${packageRequestModel?.toAddress ?? ""}",
-                      style: BlackSmallTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
+                  Text(
+                    "${packageRequestModel?.toAddress ?? ""}",
+                    style: BlackSmallTextStyle,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               )
             ],
@@ -660,19 +660,9 @@ class PackageRequestCard extends StatelessWidget {
                   "Pickup Time",
                   style: BlackSmallTextStyle,
                 ),
-                trailing: Container(
-                  width: 90,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        "${packageRequestModel!.requestTime ?? ""}",
-                        style: BlackSmallTextStyle,
-                      ),
-                    ],
-                  ),
+                trailing: Text(
+                  "${packageRequestModel!.requestTime ?? ""}",
+                  style: BlackSmallTextStyle,
                 ),
               ),
             ),
