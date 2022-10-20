@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/model/driver_model.dart';
-import 'package:flutter_web_dashboard/pages/users/user_detail_large.dart';
-import 'package:flutter_web_dashboard/pages/users/user_detail_small.dart';
+import 'package:flutter_web_dashboard/pages/2_users/user_detail_large.dart';
+import 'package:flutter_web_dashboard/pages/2_users/user_detail_small.dart';
 
 class UserLayOutScreen extends StatelessWidget {
   DriverModel? driverModel;
