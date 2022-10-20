@@ -30,7 +30,10 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_web_dashboard/constants/controllers.dart';
+import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
 import 'package:flutter_web_dashboard/widgets/side_menu.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import 'widgets/top_nav.dart';
 
@@ -40,6 +43,7 @@ class SiteLayout extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   SiteLayout({Key? key, this.child}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,19 +51,26 @@ class SiteLayout extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: topNavigationBar(context, scaffoldKey),
       drawer: Drawer(child: SideMenu()),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: SideMenu()),
-          Expanded(
-            flex: 5,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              child: child,
-            ),
-          )
-        ],
-      ),
+      body: Obx(() {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            navigationController.showSideMenu.value
+                ? ResponsiveWidget.isSmallScreen(context)
+                    ? SizedBox()
+                    : Expanded(child: SideMenu())
+                : SizedBox(),
+            // Container(color: Colors.green, width: 50),
+            Expanded(
+              flex: 5,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                child: child,
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }

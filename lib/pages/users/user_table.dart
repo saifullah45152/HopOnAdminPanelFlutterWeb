@@ -110,17 +110,11 @@ class UserTable extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       log("View Button Pressed ");
-                                      // Get.to(
-                                      //   () => LayoutScreen(
-                                      //     driverModel: driverModel,
-                                      //   ),
-                                      // );
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (BuildContext context) => UserLayOutScreen(
-                                            driverModel: driverModel,
-                                          ),
+                                          builder: (BuildContext context) => UserLayOutScreen(driverModel: driverModel),
                                         ),
                                       );
                                     },

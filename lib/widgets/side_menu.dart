@@ -22,51 +22,45 @@ class SideMenu extends StatelessWidget {
       color: light,
       child: ListView(
         children: [
-          if (ResponsiveWidget.isSmallScreen(context))
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 40),
-                Row(
-                  children: [
-                    SizedBox(width: _width / 48),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Image.asset(
-                        "assets/images/2-removebg-preview.png",
-                        height: 50,
-                      ),
-                    ),
-                    Flexible(
-                      child: CustomText(
-                        text: "Dash",
-                        size: 20,
-                        weight: FontWeight.bold,
-                        color: active,
-                      ),
-                    ),
-                    SizedBox(width: _width / 48),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          Divider(
-            color: lightGrey.withOpacity(.1),
-            thickness: 4,
-          ),
+          // if (ResponsiveWidget.isSmallScreen(context))
+          //   Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       SizedBox(height: 40),
+          //       Row(
+          //         children: [
+          //           SizedBox(width: _width / 48),
+          //           Padding(
+          //             padding: const EdgeInsets.only(right: 12),
+          //             child: Image.asset(
+          //               "assets/images/2-removebg-preview.png",
+          //               height: 50,
+          //             ),
+          //           ),
+          //           Flexible(
+          //             child: CustomText(
+          //               text: "Dash",
+          //               size: 20,
+          //               weight: FontWeight.bold,
+          //               color: active,
+          //             ),
+          //           ),
+          //           SizedBox(width: _width / 48),
+          //         ],
+          //       ),
+          //       SizedBox(
+          //         height: 30,
+          //       ),
+          //     ],
+          //   ),
+          Divider(color: lightGrey.withOpacity(.1), thickness: 4),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: sideMenuItemRoutes
+
                 .map((item) => SideMenuItem(
                     itemName: item.name,
                     onTap: () {
-                      log("*********");
-                      log("  ${item.route}");
-                      log("  ${timePagePageRoute}");
-
                       // if (item.route == authenticationPageRoute) {
                       //   Get.offAllNamed(authenticationPageRoute);
                       //   menuController.changeActiveItemTo(overviewPageDisplayName);
@@ -100,6 +94,8 @@ class SideMenu extends StatelessWidget {
                       //    Navigator.pushNamed(context, RoutesName.USERPAGE);
                       //    menuController.changeActiveItemTo(overviewPageDisplayName);
                       //  }
+
+                      ResponsiveWidget.isSmallScreen(context) ? NavigationService.goBack() : null;
                       locator<NavigationService>().navigateTo(item.route);
                       // locator<NavigationService>().navigateTo(timePagePageRoute);
 

@@ -10,6 +10,7 @@ import 'package:flutter_web_dashboard/pages/price/price_page.dart';
 import 'package:flutter_web_dashboard/pages/record/record_page.dart';
 import 'package:flutter_web_dashboard/pages/time/time.dart';
 import 'package:flutter_web_dashboard/pages/users/user_detail_layout_bulder.dart';
+import 'package:flutter_web_dashboard/pages/users/users.dart';
 
 const rootRoute = "/";
 
@@ -135,10 +136,9 @@ class RouteGenerator {
 
       //User Page
       case usersPageRoute:
-        return _getPageRoute(OverviewPage(), settings);
+        return _getPageRoute(UserPage(), settings);
 
       // return GeneratePageRoute(widget: RecordPage(), routeName: settings.name);
-
       // return _getPageRoute(UserPage(), settings);
 
       case pricePageRoute:
