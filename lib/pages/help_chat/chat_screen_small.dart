@@ -90,8 +90,8 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body:  Center(
+    return Scaffold(
+      body: Center(
         child: Container(
           padding: const EdgeInsets.all(16),
           margin: EdgeInsets.only(bottom: 30),
@@ -121,9 +121,7 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                           if (snapshot.hasData) {
                             WidgetsBinding.instance?.addPostFrameCallback((_) {
                               if (scrollController.hasClients) {
-                                scrollController.jumpTo(
-                                  scrollController.position.maxScrollExtent,
-                                );
+                                scrollController.jumpTo(scrollController.position.maxScrollExtent);
                               }
                             });
                             return GroupedListView<dynamic, String>(
@@ -135,7 +133,7 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                               itemComparator: (element1, element2) => element1['time'].compareTo(element2['time']),
                               floatingHeader: false,
                               groupBy: (dynamic element) =>
-                              "${monthsList[DateTime.fromMillisecondsSinceEpoch(element['time']).month - 1]} "
+                                  "${monthsList[DateTime.fromMillisecondsSinceEpoch(element['time']).month - 1]} "
                                   "${DateTime.fromMillisecondsSinceEpoch(element['time']).day}, "
                                   "${DateTime.fromMillisecondsSinceEpoch(element['time']).year}",
                               groupComparator: (String value1, String value2) => value2.compareTo(value1),
@@ -146,7 +144,7 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                                         element;
                                 log("isToday $isToday");
                                 final yesterday =
-                                DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
+                                    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
                                 final yesterdayHere =
                                     "${monthsList[yesterday.month - 1]} ${yesterday.day}, ${yesterday.year}";
                                 log("yesterdayHere $yesterdayHere");
@@ -173,8 +171,8 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                                         child: Text(
                                           !isToday
                                               ? checkDate == yesterdayHere
-                                              ? "Yesterday"
-                                              : element
+                                                  ? "Yesterday"
+                                                  : element
                                               : "Today",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -189,12 +187,12 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                               },
                               itemBuilder: (context, dynamic element) {
                                 lastIndex.value = snapshot.data!.docs.indexWhere((element) =>
-                                (element["message"] == lastMessage.value &&
-                                    element["time"] == lastMessageAt.value));
+                                    (element["message"] == lastMessage.value &&
+                                        element["time"] == lastMessageAt.value));
 
                                 String type = element.data()["type"];
                                 String message =
-                                element.data()["message"] != null ? element.data()["message"] : "what is this?";
+                                    element.data()["message"] != null ? element.data()["message"] : "what is this?";
                                 bool sendByMe = adminId == element.data()["sendById"];
 
                                 if (!sendByMe) {
@@ -221,28 +219,28 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                                   case 'text':
                                     return (sendByMe)
                                         ? RightBubble(
-                                      type: 'text',
-                                      time: "${hour.toString()}:"
-                                          "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
-                                          "${ampm}",
-                                      msg: message,
-                                      id: element.id,
-                                      sendByMe: sendByMe,
-                                      isRead: element['isRead'],
-                                      isReceived: element['isReceived'],
-                                    )
+                                            type: 'text',
+                                            time: "${hour.toString()}:"
+                                                "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
+                                                "${ampm}",
+                                            msg: message,
+                                            id: element.id,
+                                            sendByMe: sendByMe,
+                                            isRead: element['isRead'],
+                                            isReceived: element['isReceived'],
+                                          )
                                         : LeftBubble(
-                                      personImage: anotherUserImage,
-                                      type: 'text',
-                                      time: "${hour.toString()}:"
-                                          "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
-                                          "${ampm}",
-                                      msg: message,
-                                      id: element.id,
-                                      sendByMe: sendByMe,
-                                      isRead: element['isRead'],
-                                      isReceived: element['isReceived'],
-                                    );
+                                            personImage: anotherUserImage,
+                                            type: 'text',
+                                            time: "${hour.toString()}:"
+                                                "${(min.toString().length < 2) ? "0${min.toString()}" : min.toString()} "
+                                                "${ampm}",
+                                            msg: message,
+                                            id: element.id,
+                                            sendByMe: sendByMe,
+                                            isRead: element['isRead'],
+                                            isReceived: element['isReceived'],
+                                          );
 
                                   default:
                                     return Container();
@@ -286,11 +284,12 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                                   child: TextFormField(
                                     controller: msgController,
                                     decoration: InputDecoration(
-                                      labelText: "Type here....",
-                                      hintText: "Hello World",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
+                                      hintText: "Type here",
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none,
                                     ),
                                   ),
                                 ),
@@ -298,7 +297,6 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
                                   flex: 1,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      log("send message ");
                                       await sendMessage();
                                     },
                                     child: Image.asset(
@@ -319,9 +317,7 @@ class _HelpChatScreenSmallState extends State<HelpChatScreenSmall> {
           ),
         ),
       ),
-
     );
-
   }
 }
 

@@ -9,8 +9,6 @@ import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/firebase_options.dart';
 import 'package:flutter_web_dashboard/layout.dart';
 import 'package:flutter_web_dashboard/locator.dart';
-
-import 'package:flutter_web_dashboard/pages/record/record_view.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';

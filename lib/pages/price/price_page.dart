@@ -2,14 +2,11 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
-import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
 import 'package:flutter_web_dashboard/pages/price/hop_on_go_price_update.dart';
 import 'package:flutter_web_dashboard/pages/price/hop_on_x_price_update.dart';
 import 'package:flutter_web_dashboard/pages/price/hop_on_xl_price_update.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
-import 'package:get/get.dart';
 
 class PricePage extends StatelessWidget {
   const PricePage({Key? key}) : super(key: key);

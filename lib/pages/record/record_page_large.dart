@@ -221,10 +221,6 @@ class RideRequestCard extends StatelessWidget {
               ),
             ],
           ),
-          // SizedBox(height: 20),
-          // buildRow(title: 'PickUp Location', subtitle: "${requestModel?.fromAddress ?? ""}"),
-          // SizedBox(height: 20),
-          // buildRow(title: 'Drop-Off-Location', subtitle: "${requestModel?.toAddress ?? ""}"),
           SizedBox(height: 20),
           buildRow(title: 'Passenger Name', subtitle: "${requestModel?.passengerName ?? ""}"),
           SizedBox(height: 20),
@@ -294,7 +290,6 @@ class PackageRequestCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 70, vertical: 20),
       decoration: BoxDecoration(
         color: kPrimaryColor,
-        // color: Colors.green,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -309,47 +304,6 @@ class PackageRequestCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              // Container(
-              //   child: Column(
-              //     children: [
-              //       Container(
-              //         padding: EdgeInsets.all(8),
-              //         decoration: BoxDecoration(
-              //           color: KSecondaryColor,
-              //           borderRadius: BorderRadius.circular(100),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.all(3),
-              //           decoration: BoxDecoration(
-              //             color: KPrimaryColor,
-              //             borderRadius: BorderRadius.circular(100),
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         height: 50,
-              //         child: VerticalDivider(
-              //           color: KBlackColor.withOpacity(0.2),
-              //         ),
-              //       ),
-              //       Container(
-              //         padding: EdgeInsets.all(8),
-              //         decoration: BoxDecoration(
-              //           color: KGreyColor,
-              //           borderRadius: BorderRadius.circular(100),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.all(3),
-              //           decoration: BoxDecoration(
-              //             color: KSecondaryColor,
-              //             borderRadius: BorderRadius.circular(100),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(width: 25),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,

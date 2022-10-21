@@ -18,20 +18,7 @@ class UserPage extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Obx(
-            () => Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
-                  child: CustomText(
-                    text: menuController.activeItem.value,
-                    size: 24,
-                    weight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
+
           Expanded(
             child: ListView(
               children: [
@@ -74,8 +61,7 @@ class UserPage extends StatelessWidget {
                                   Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
                                   DriverModel driverModel =
                                       DriverModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>);
-                                  log("Data is ${data}");
-                                  log(" driver model is \n  ${driverModel.toJson()}");
+
                                   return Container(
                                     padding: EdgeInsets.all(10),
                                     child: Column(

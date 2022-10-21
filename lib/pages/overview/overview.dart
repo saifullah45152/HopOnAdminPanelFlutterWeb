@@ -17,23 +17,23 @@ class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    log("over view page coming ");
+
     return Container(
       child: Column(
         children: [
-          Obx(
-            () => Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
-                    child: CustomText(
-                      text: menuController.activeItem.value,
-                      size: 24,
-                      weight: FontWeight.bold,
-                    )),
-              ],
-            ),
-          ),
+          // Obx(
+          //   () => Row(
+          //     children: [
+          //       Container(
+          //           margin: EdgeInsets.only(top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+          //           child: CustomText(
+          //             text: menuController.activeItem.value,
+          //             size: 24,
+          //             weight: FontWeight.bold,
+          //           )),
+          //     ],
+          //   ),
+          // ),
           Expanded(
             child: ListView(
               children: [
@@ -45,7 +45,7 @@ class OverviewPage extends StatelessWidget {
                 else
                   OverviewCardsSmallScreen(),
                 if (!ResponsiveWidget.isSmallScreen(context)) RevenueSectionLarge() else RevenueSectionSmall(),
-                AvailableDriversTable(),
+                // AvailableDriversTable(),
               ],
             ),
           )

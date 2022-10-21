@@ -11,15 +11,20 @@ class RevenueInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(children: [
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          children: [
             TextSpan(
-                text: "$title \n\n",
-                style: TextStyle(color: lightGrey, fontSize: 16)),
+              text: "$title \n\n",
+              style: TextStyle(color: lightGrey, fontSize: 16),
+            ),
             TextSpan(
-                text: "\$ $amount",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          ])),
+              text: "\$ $amount",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
