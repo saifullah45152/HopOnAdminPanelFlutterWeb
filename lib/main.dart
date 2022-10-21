@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +8,13 @@ import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/controllers/navigation_controller.dart';
 import 'package:flutter_web_dashboard/firebase_options.dart';
 import 'package:flutter_web_dashboard/layout.dart';
-import 'package:flutter_web_dashboard/layout_template.dart';
 import 'package:flutter_web_dashboard/locator.dart';
-import 'package:flutter_web_dashboard/pages/new_chat_ui/new_chat_ui.dart';
-import 'package:flutter_web_dashboard/pages/record/record_page.dart';
+
+import 'package:flutter_web_dashboard/pages/record/record_view.dart';
 import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -41,8 +37,7 @@ Future<void> main() async {
         measurementId: "G-5BCFMKK7BK",
       ),
     );
-  }
-  else {
+  } else {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
 
@@ -61,26 +56,18 @@ class MyApp extends StatelessWidget {
           title: 'Dashboard',
           theme: ThemeData(
             scaffoldBackgroundColor: light,
-            textTheme: GoogleFonts.mulishTextTheme(Theme.of(context).textTheme).apply(
-              bodyColor: Colors.black,
-            ),
+            textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Open Sans'),
+            // textTheme: GoogleFonts.mulishTextTheme(Theme.of(context).textTheme).apply(bodyColor: Colors.black),
             pageTransitionsTheme: PageTransitionsTheme(builders: {
               TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
               TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
             }),
             primarySwatch: Colors.blue,
           ),
-          // builder: (context, child) => LayoutTemplate(child: child),
-
-          // builder: (context, child) => SiteLayout(child: child),
-          // navigatorKey: NavigationService.navigatorKey,
-          // onGenerateRoute: RouteGenerator.generateRoute,
-          // initialRoute: loginPageRouteName,
-          home: NewChatUI(),
-
-          // initialRoute: siteLayOutPageRoute,
-
-          // initialRoute: loginPageRouteName,
+          builder: (context, child) => SiteLayout(child: child),
+          navigatorKey: NavigationService.navigatorKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: loginPageRouteName,
         );
       },
     );

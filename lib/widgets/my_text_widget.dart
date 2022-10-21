@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyText extends StatelessWidget {
   var text, color, weight, align, decoration, fontFamily, fontStyle;

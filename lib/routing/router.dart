@@ -1,20 +1,19 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/layout.dart';
 import 'package:flutter_web_dashboard/pages/0_authentication/authentication.dart';
 import 'package:flutter_web_dashboard/pages/2_users/user_detail_layout_bulder.dart';
 import 'package:flutter_web_dashboard/pages/2_users/users.dart';
 import 'package:flutter_web_dashboard/pages/404/error.dart';
-import 'package:flutter_web_dashboard/pages/help_chat/chat_screen_small.dart';
-import 'package:flutter_web_dashboard/pages/help_chat/chat_table.dart';
+import 'package:flutter_web_dashboard/pages/active_rides/active_rides__view.dart';
 import 'package:flutter_web_dashboard/pages/help_chat/help_chat_page.dart';
 import 'package:flutter_web_dashboard/pages/overview/overview.dart';
 import 'package:flutter_web_dashboard/pages/price/price_page.dart';
-import 'package:flutter_web_dashboard/pages/record/record_page.dart';
+import 'package:flutter_web_dashboard/pages/record/record_view.dart';
+import 'package:flutter_web_dashboard/pages/reservations/reservation_view.dart';
 import 'package:flutter_web_dashboard/pages/time/time.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
 
-import '../pages/active_rides/active_rides_page.dart';
+
 
 class MenuItem {
   final String name;
@@ -53,9 +52,11 @@ class RouteGenerator {
       case timePagePageRoute:
         return _getPageRoute(TimePage(), settings);
       case activeRidesPagePageRoute:
-        return _getPageRoute(ActiveRides(), settings);
+        return _getPageRoute(ActiveRidesView(), settings);
       case recordPageRoute:
-        return _getPageRoute(RecordPage(), settings);
+        return _getPageRoute(RecordView(), settings);
+        case reservationPagePageRoute:
+        return _getPageRoute(ReservationView(), settings);
       case userLayOutPage:
         return _getPageRoute(UserLayOutScreen(), settings);
       case helpChatPageRoute:

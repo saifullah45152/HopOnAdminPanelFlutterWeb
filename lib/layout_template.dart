@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_dashboard/centered_view.dart';
 import 'package:flutter_web_dashboard/helpers/reponsiveness.dart';
 import 'package:flutter_web_dashboard/widgets/side_menu.dart';
 import 'package:flutter_web_dashboard/widgets/top_nav.dart';

@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/pages/new_chat_ui/new_chat_screen.dart';
-import 'package:get/get.dart';
 
 class NewChatUI extends StatelessWidget {
   //Chat HEAD

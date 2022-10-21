@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/locator.dart';
-import 'package:flutter_web_dashboard/routing/router.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
 import 'package:flutter_web_dashboard/services/navigation_service.dart';
 import 'package:flutter_web_dashboard/widgets/custom_text.dart';
