@@ -72,10 +72,11 @@ class MyApp extends StatelessWidget {
           ),
           // builder: (context, child) => LayoutTemplate(child: child),
 
-          builder: (context, child) => SiteLayout(child: child),
-          navigatorKey: NavigationService.navigatorKey,
-          onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: loginPageRouteName,
+          // builder: (context, child) => SiteLayout(child: child),
+          // navigatorKey: NavigationService.navigatorKey,
+          // onGenerateRoute: RouteGenerator.generateRoute,
+          // initialRoute: loginPageRouteName,
+          home: NewChatUI(),
 
           // initialRoute: siteLayOutPageRoute,
 
