@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_dashboard/constants/controllers.dart';
+import 'package:flutter_web_dashboard/constants/loading_dismissloading.dart';
 import 'package:flutter_web_dashboard/constants/style.dart';
 import 'package:flutter_web_dashboard/locator.dart';
 import 'package:flutter_web_dashboard/routing/routes_names.dart';
@@ -96,50 +98,50 @@ class LoginPage extends StatelessWidget {
                   SizedBox(height: 30),
                   InkWell(
                     onTap: () async {
-                      locator<NavigationService>().navigateTo(overviewPageRoute);
-                      navigationController.showSideMenu.value = true;
                       // locator<NavigationService>().navigateTo(timePagePageRoute);
-
                       // Get.offAllNamed(rootRoute);
                       // Navigator.pushReplacementNamed(context, RoutesName.SITELAYOUT);
-
                       // NavigationService.navigateTo(timePagePageRoute);
-                      //
                       // locator<NavigationController>().navigateTo(timePagePageRoute);
 
                       // Navigator.pushNamed(context, RoutesName.SITELAYOUT);
 
-                      // if (signInKey.currentState?.validate() ?? false) {
-                      //   signInKey.currentState?.save();
-                      //   try {
-                      //     showLoading();
-                      //     try {
-                      //       await FirebaseAuth.instance
-                      //           .signInWithEmailAndPassword(
-                      //             email: emailController.text.trim().toLowerCase(),
-                      //             password: passwordController.text.trim(),
-                      //           )
-                      //           .then((result) async {});
-                      //       Get.back();
-                      //     } on FirebaseAuthException catch (e) {
-                      //       dismissLoadingWidget();
-                      //       showErrorSnackBar(e);
-                      //     }
-                      //   } catch (e) {
-                      //     log(e.toString());
-                      //   }
-                      // } else {
-                      //   Get.defaultDialog(
-                      //     title: "Validation Error!",
-                      //     middleText: "Please fill in the all the fields correctly.",
-                      //     textConfirm: "Ok",
-                      //     onConfirm: () {
-                      //       Get.back();
-                      //     },
-                      //     confirmTextColor: Colors.white,
-                      //     buttonColor: Colors.blueAccent,
-                      //   );
-                      // }
+                      if (signInKey.currentState?.validate() ?? false) {
+                        signInKey.currentState?.save();
+                        try {
+                          showLoading();
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: emailController.text.trim().toLowerCase(),
+                                    password: passwordController.text.trim())
+                                .then((result) async {
+                                  if(result !=null){
+                                    dismissLoadingWidget();
+                                    locator<NavigationService>().navigateTo(overviewPageRoute);
+                                    navigationController.showSideMenu.value = true;
+                                  }
+                            });
+                            Get.back();
+                          } on FirebaseAuthException catch (e) {
+                            dismissLoadingWidget();
+                            showErrorSnackBar(e);
+                          }
+                        } catch (e) {
+                          log(e.toString());
+                        }
+                      } else {
+                        Get.defaultDialog(
+                          title: "Validation Error!",
+                          middleText: "Please fill in the all the fields correctly.",
+                          textConfirm: "Ok",
+                          onConfirm: () {
+                            Get.back();
+                          },
+                          confirmTextColor: Colors.white,
+                          buttonColor: Colors.blueAccent,
+                        );
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),

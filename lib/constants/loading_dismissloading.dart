@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -77,9 +76,8 @@ showErrorSnackBar(FirebaseAuthException e) {
     case "wrong-password":
       log("wrong-password");
       showCustomSnackBar(
-        title: "🤦‍♂️Wrong Password!",
-        message: "Please 🙏 enter correct current password to "
-            "successfully change the email.",
+        title: "Wrong Password!",
+        message: "Please enter correct password ",
         seconds: 4,
       );
       break;

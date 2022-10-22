@@ -8,14 +8,14 @@ class InfoCard extends StatelessWidget {
   final bool isActive;
   final Function() onTap;
 
-  const InfoCard(
-      {Key? key,
-      required this.title,
-      required this.value,
-      this.isActive = false,
-      required this.onTap,
-      this.topColor})
-      : super(key: key);
+  const InfoCard({
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.onTap,
+    this.isActive = false,
+    this.topColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +46,7 @@ class InfoCard extends StatelessWidget {
               RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(children: [
-                    TextSpan(
-                        text: "$title\n", style: TextStyle(fontSize: 16, color: isActive ? active : lightGrey)),
+                    TextSpan(text: "$title\n", style: TextStyle(fontSize: 16, color: isActive ? active : lightGrey)),
                     TextSpan(text: "$value", style: TextStyle(fontSize: 40, color: isActive ? active : dark)),
                   ])),
               Expanded(child: Container()),

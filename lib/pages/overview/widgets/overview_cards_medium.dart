@@ -63,6 +63,46 @@ class OverviewCardsMediumScreen extends StatelessWidget {
               },
             ),
             SizedBox(width: _width / 64),
+            // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            //   stream: ffstore.collection("CompleteRides").snapshots(),
+            //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            //     int previousCount = snapshot.data != null ? snapshot.data!.docs.length : 0;
+            //     log(" data is : ${snapshot.data!.docs.length}");
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return InfoCard(
+            //         title: "Rides Completed",
+            //         value: snapshot.data != null ? "${snapshot.data!.docs[0]['totalPackage']}" : "",
+            //         onTap: () {},
+            //         topColor: Colors.orange,
+            //       );
+            //     } else if (snapshot.connectionState == ConnectionState.active ||
+            //         snapshot.connectionState == ConnectionState.done) {
+            //       if (snapshot.hasError) {
+            //         return const Text('Error');
+            //       } else if (snapshot.hasData) {
+            //         if (snapshot.data!.docs.length > 0) {
+            //           return InfoCard(
+            //             title: "Rides Completed",
+            //             value: "${snapshot.data!.docs[0]['totalPackage']}",
+            //             onTap: () {},
+            //             topColor: Colors.orange,
+            //           );
+            //         } else {
+            //           return InfoCard(
+            //             title: "Rides Completed",
+            //             value: "0",
+            //             onTap: () {},
+            //             topColor: Colors.orange,
+            //           );
+            //         }
+            //       } else {
+            //         return Center();
+            //       }
+            //     } else {
+            //       return Center();
+            //     }
+            //   },
+            // ),
             InfoCard(
               title: "Packages delivered",
               value: "17",
