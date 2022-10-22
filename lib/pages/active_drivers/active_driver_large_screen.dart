@@ -173,7 +173,7 @@ class ActiveDriverLargeScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: 14),
                                         MyText(
-                                          text: "Account Balance : ${driverModel.balance ?? ""}",
+                                          text: "Account Balance : ${driverModel.balance?.toStringAsFixed(2) ?? ""}",
                                           size: 30,
                                           weight: FontWeight.w500,
                                           color: Colors.black,

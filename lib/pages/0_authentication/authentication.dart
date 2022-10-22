@@ -106,42 +106,47 @@ class LoginPage extends StatelessWidget {
 
                       // Navigator.pushNamed(context, RoutesName.SITELAYOUT);
 
-                      if (signInKey.currentState?.validate() ?? false) {
-                        signInKey.currentState?.save();
-                        try {
-                          showLoading();
-                          try {
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: emailController.text.trim().toLowerCase(),
-                                    password: passwordController.text.trim())
-                                .then((result) async {
-                                  if(result !=null){
-                                    dismissLoadingWidget();
-                                    locator<NavigationService>().navigateTo(overviewPageRoute);
-                                    navigationController.showSideMenu.value = true;
-                                  }
-                            });
-                            Get.back();
-                          } on FirebaseAuthException catch (e) {
-                            dismissLoadingWidget();
-                            showErrorSnackBar(e);
-                          }
-                        } catch (e) {
-                          log(e.toString());
-                        }
-                      } else {
-                        Get.defaultDialog(
-                          title: "Validation Error!",
-                          middleText: "Please fill in the all the fields correctly.",
-                          textConfirm: "Ok",
-                          onConfirm: () {
-                            Get.back();
-                          },
-                          confirmTextColor: Colors.white,
-                          buttonColor: Colors.blueAccent,
-                        );
-                      }
+
+                      navigationController.showSideMenu.value = true;
+                      locator<NavigationService>().navigateTo(overviewPageRoute);
+
+                      // if (signInKey.currentState?.validate() ?? false) {
+                      //   signInKey.currentState?.save();
+                      //   try {
+                      //     showLoading();
+                      //     try {
+                      //       await FirebaseAuth.instance
+                      //           .signInWithEmailAndPassword(
+                      //               email: emailController.text.trim().toLowerCase(),
+                      //               password: passwordController.text.trim())
+                      //           .then((result) async {
+                      //             if(result !=null){
+                      //               dismissLoadingWidget();
+                      //               locator<NavigationService>().navigateTo(overviewPageRoute);
+                      //               navigationController.showSideMenu.value = true;
+                      //             }
+                      //       });
+                      //       Get.back();
+                      //     } on FirebaseAuthException catch (e) {
+                      //       dismissLoadingWidget();
+                      //       showErrorSnackBar(e);
+                      //     }
+                      //   } catch (e) {
+                      //     log(e.toString());
+                      //   }
+                      // }
+                      // else {
+                      //   Get.defaultDialog(
+                      //     title: "Validation Error!",
+                      //     middleText: "Please fill in the all the fields correctly.",
+                      //     textConfirm: "Ok",
+                      //     onConfirm: () {
+                      //       Get.back();
+                      //     },
+                      //     confirmTextColor: Colors.white,
+                      //     buttonColor: Colors.blueAccent,
+                      //   );
+                      // }
                     },
                     child: Container(
                       decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),

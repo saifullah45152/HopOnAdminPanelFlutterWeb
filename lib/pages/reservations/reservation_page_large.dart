@@ -179,7 +179,7 @@ class RideRequestCard extends StatelessWidget {
                       "Pickup location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -201,7 +201,7 @@ class RideRequestCard extends StatelessWidget {
                       "Drop-off location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -221,10 +221,6 @@ class RideRequestCard extends StatelessWidget {
               ),
             ],
           ),
-          // SizedBox(height: 20),
-          // buildRow(title: 'PickUp Location', subtitle: "${requestModel?.fromAddress ?? ""}"),
-          // SizedBox(height: 20),
-          // buildRow(title: 'Drop-Off-Location', subtitle: "${requestModel?.toAddress ?? ""}"),
           SizedBox(height: 20),
           buildRow(title: 'Passenger Name', subtitle: "${requestModel?.passengerName ?? ""}"),
           SizedBox(height: 20),

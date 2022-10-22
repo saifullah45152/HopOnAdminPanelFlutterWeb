@@ -162,7 +162,7 @@ class UserDetailLarge extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 25),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: ffstore
                   .collection(driverCollection)
@@ -392,7 +392,7 @@ class ImageWidget extends StatelessWidget {
       children: [
         Container(
           height: 300,
-          width: Get.width * 0.4,
+          width: Get.width * 0.3,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
@@ -536,115 +536,7 @@ class DataWidget extends StatelessWidget {
                 ],
               );
 
-              // ListView.builder(
-              //   shrinkWrap: true,
-              //   physics: BouncingScrollPhysics(),
-              //   itemCount: snapshot.data?.docs.length,
-              //   itemBuilder: (context, index) {
-              //     Map data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              //     return Container(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+Inspection
-              //           CustomText(
-              //             text: "Driver Inspection",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['inspection']}'),
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+Insurance
-              //           CustomText(
-              //             text: "Driver Insurance",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['insurance']}'),
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+licence
-              //           CustomText(
-              //             text: "Driver License",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['license']}'),
-              //
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+plate
-              //           CustomText(
-              //             text: "Driver Plate ",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['plate']}'),
-              //
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+registration
-              //           CustomText(
-              //             text: "Driver Registration ",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['registration']}'),
-              //
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+self
-              //           CustomText(
-              //             text: "Driver Self ",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['self']}'),
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+social
-              //           CustomText(
-              //             text: "Driver Social ",
-              //             size: 18,
-              //             weight: FontWeight.bold,
-              //           ),
-              //           SizedBox(height: Get.height * 0.04),
-              //           ImageWidget(imgUrl: '${data['social']}'),
-              //           SizedBox(height: Get.height * 0.04),
-              //           //+Button
-              //           SizedBox(height: Get.height * 0.06),
-              //           InkWell(
-              //             onTap: () {
-              //               log("Driver Accepted or rejected ");
-              //               ffstore
-              //                   .collection(driverCollection)
-              //                   .doc(driverModel!.currentUserId)
-              //                   .update({'isApproved': true});
-              //               Get.snackbar(
-              //                 "Success",
-              //                 "Users approved successfully",
-              //                 duration: Duration(seconds: 4),
-              //                 snackPosition: SnackPosition.BOTTOM,
-              //               );
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(color: active, borderRadius: BorderRadius.circular(20)),
-              //               alignment: Alignment.center,
-              //               width: double.maxFinite,
-              //               padding: EdgeInsets.symmetric(vertical: 16),
-              //               child: CustomText(
-              //                 text: "Accept",
-              //                 color: Colors.white,
-              //               ),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     );
-              //   },
-              // );
+
             } else {
               return Center(
                 child: const Text(

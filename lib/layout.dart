@@ -60,7 +60,6 @@ class SiteLayout extends StatelessWidget {
                     ? SizedBox()
                     : Expanded(child: SideMenu())
                 : SizedBox(),
-            // Container(color: Colors.green, width: 50),
             Expanded(
               flex: 5,
               child: Container(

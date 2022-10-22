@@ -313,7 +313,7 @@ class PackageRequestCard extends StatelessWidget {
                       "Pickup location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -335,7 +335,7 @@ class PackageRequestCard extends StatelessWidget {
                       "Drop-off location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,

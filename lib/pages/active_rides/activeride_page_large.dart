@@ -179,7 +179,7 @@ class RideRequestCard extends StatelessWidget {
                       "Pickup location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -201,7 +201,7 @@ class RideRequestCard extends StatelessWidget {
                       "Drop-off location",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.7,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -240,7 +240,7 @@ class RideRequestCard extends StatelessWidget {
               title: 'Distance',
               subtitle: " ${((requestModel?.distanceInKm ?? 0) * 0.62137).toStringAsFixed(2)} miles"),
           SizedBox(height: 20),
-          buildRow(title: 'Price', subtitle: "${requestModel?.estimatedFare ?? ""}"),
+          buildRow(title: 'Price', subtitle: "${double.parse(requestModel?.estimatedFare ?? "").toStringAsFixed(2)}"),
         ],
       ),
     );
@@ -401,10 +401,7 @@ class PackageRequestCard extends StatelessWidget {
               ),
             ],
           ),
-          // SizedBox(height: 20),
-          // buildRow(title: 'PickUp Location', subtitle: "${packageRequestModel?.fromAddress ?? ""}"),
-          // SizedBox(height: 20),
-          // buildRow(title: 'Drop-Off-Location', subtitle: "${packageRequestModel?.toAddress ?? ""}"),
+
           SizedBox(height: 20),
           buildRow(title: 'Passenger Name', subtitle: "${packageRequestModel?.passengerName ?? ""}"),
           SizedBox(height: 20),
@@ -420,7 +417,10 @@ class PackageRequestCard extends StatelessWidget {
               title: 'Distance',
               subtitle: " ${((packageRequestModel?.distanceInKm ?? 0) * 0.62137).toStringAsFixed(2)} miles"),
           SizedBox(height: 20),
-          buildRow(title: 'Price', subtitle: "${packageRequestModel?.estimatedFare ?? ""}"),
+          buildRow(
+              title: 'Price', subtitle: "${double.parse(packageRequestModel?.estimatedFare ?? "").toStringAsFixed(2)}"),
+
+          // buildRow(title: 'Price', subtitle: "${packageRequestModel?.estimatedFare ?? ""}"),
         ],
       ),
     );

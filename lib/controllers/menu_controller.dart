@@ -28,8 +28,14 @@ class MenuController extends GetxController {
       //overView
       case overviewPageDisplayName:
         return _customIcon(Icons.trending_up, itemName);
+
       case usersPageDisplayName:
         return _customIcon(Icons.people_alt_outlined, itemName);
+
+      case activeDriversPageDisplayName:
+        return _customIcon(Icons.people_alt_outlined, itemName);
+
+
       case pricePageDisplayName:
         return _customIcon(Icons.price_change, itemName);
       case timePageDisplayName:
