@@ -43,10 +43,16 @@ class RevenueSectionLarge extends StatelessWidget {
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ffstore.collection("HopOnEarnings").snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+              int previousCount = snapshot.data != null ? snapshot.data!.docs.length : 0;
+
               log("inside home stream builder");
               if (snapshot.connectionState == ConnectionState.waiting) {
                 log("inside home stream builder in waiting state");
-                return Center(child: CircularProgressIndicator());
+                return  RevenueInfo(
+                  title: "HOP ON Go",
+                  amount: "$previousCount",
+                );
               } else if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {
@@ -79,10 +85,15 @@ class RevenueSectionLarge extends StatelessWidget {
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ffstore.collection("HopOnEarnings").snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              int previousCount = snapshot.data != null ? snapshot.data!.docs.length : 0;
+
               log("inside home stream builder");
               if (snapshot.connectionState == ConnectionState.waiting) {
                 log("inside home stream builder in waiting state");
-                return Center(child: CircularProgressIndicator());
+                return  RevenueInfo(
+                  title: "HOP ON X",
+                  amount: "$previousCount",
+                );
               } else if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {
@@ -115,10 +126,15 @@ class RevenueSectionLarge extends StatelessWidget {
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ffstore.collection("HopOnEarnings").snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              int previousCount = snapshot.data != null ? snapshot.data!.docs.length : 0;
+
               log("inside home stream builder");
               if (snapshot.connectionState == ConnectionState.waiting) {
                 log("inside home stream builder in waiting state");
-                return Center(child: CircularProgressIndicator());
+                return  RevenueInfo(
+                  title: "HOP ON XL",
+                  amount: "$previousCount",
+                );;
               } else if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {

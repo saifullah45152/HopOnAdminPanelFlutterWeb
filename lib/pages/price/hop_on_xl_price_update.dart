@@ -163,10 +163,10 @@ class _HopOnXLPriceUpdateState extends State<HopOnXLPriceUpdate> {
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             await ffstore.collection("HopOnPrices").doc(widget.id).update({
-                              'pricePerMiles': int.parse(kiloMeterController.text),
+                              'pricePerMiles': double.parse(kiloMeterController.text),
                               'bookingFee':int.parse( bookingFeeController.text),
                               'serviceFee': double.parse(serviceController.text),
-                              'timeMultiplier': int.parse(timeController.text),
+                              'timeMultiplier': double.parse(timeController.text),
                             });
                             Get.snackbar(
                               "Success",

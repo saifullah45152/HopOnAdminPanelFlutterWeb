@@ -44,6 +44,7 @@ class OverviewPage extends StatelessWidget {
                     OverviewCardsLargeScreen()
                 else
                   OverviewCardsSmallScreen(),
+                //second widget
                 if (!ResponsiveWidget.isSmallScreen(context)) RevenueSectionLarge() else RevenueSectionSmall(),
                 // AvailableDriversTable(),
               ],
